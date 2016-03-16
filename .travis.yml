@@ -1,2 +1,4 @@
 language: cpp
 compiler: clang
+
+script: make #should use 'make test'
