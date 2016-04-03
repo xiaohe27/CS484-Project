@@ -30,9 +30,12 @@ rMatGraph_WE_% : ../addWeights
 	make -s $(subst WE,E,$@) 
 	../addWeights $(subst WE,E,$@) $@
 
+
 randLocalGraph_WE_5_% : ../addWeights
 	make -s $(subst WE,E,$@) 
 	../addWeights $(subst WE,E,$@) $@
+
+
 
 2Dgrid_J_% : ../gridGraph
 	../gridGraph -j -d 2 -o $(subst 2Dgrid_J_,,$@) $@
