@@ -33,7 +33,7 @@ rMatGraph_WE_% : ../addWeights
 
 randLocalGraph_WE_5_% : ../addWeights
 	make -s $(subst WE,E,$@) 
-	../addWeights -t int $(subst WE,E,$@) $@
+	../addWeights $(subst WE,E,$@) $@
 
 
 
