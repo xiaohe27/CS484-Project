@@ -8,8 +8,6 @@
 #ifndef CS484_PROJECT_APSP_H
 #define CS484_PROJECT_APSP_H
 
-using namespace std;
-
 extern "C" {
  char* allPairsShortestPath(graph<intT> Gr);
 }
