@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/travis-ci/travis-web.svg?branch=master)](https://travis-ci.org/travis-ci/travis-web)
 # CS484-Project
 All the code and resources related to CS484 course project
 
