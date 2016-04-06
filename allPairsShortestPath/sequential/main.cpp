@@ -18,7 +18,7 @@ char *allPairsShortestPath(wghEdgeArray<intT> Gr) {
     //the initial shortest path table is a n*n matrix
     //so we need to analyze the original weighted multi-graph
     //to obtain the initial configuration.
-    double **weightTable = new double* [n];
+    double **weightTable = new double *[n];
 
     for (int i = 0; i < n; ++i) {
         weightTable[i] = new double[n];
@@ -42,17 +42,29 @@ char *allPairsShortestPath(wghEdgeArray<intT> Gr) {
     }
 
     //print the init config
+    cout << "Init config is " << endl;
     printMatrix(weightTable, n);
 
     //TODO: the sequential algorithm
+    for (int k = 0; k < n; ++k) {
+        for (int j = 0; j < n; ++j) {
+            for (int i = 0; i < n; ++i) {
+                double viaK = weightTable[i][k] + weightTable[k][j];
+                if (weightTable[i][j] > viaK)
+                    weightTable[i][j] = viaK;
+            }
+        }
+    }
 
+    cout << "The all pairs shortest path table is:" << endl;
+    printMatrix(weightTable, n);//the final config.
 
     //clean
     for (int k = 0; k < n; ++k) {
-        delete [] weightTable[k];
+        delete[] weightTable[k];
     }
 
-    delete [] weightTable;
+    delete[] weightTable;
 }
 
 int main(int argc, char **argv) {
