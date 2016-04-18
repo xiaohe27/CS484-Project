@@ -7,7 +7,17 @@
 
 using namespace std;
 
-char *allPairsShortestPath(wghEdgeArray<intT> Gr) {
+
+inline void clean(double **weightTable, int n) {
+    //clean
+    for (int k = 0; k < n; ++k) {
+        delete[] weightTable[k];
+    }
+
+    delete[] weightTable;
+}
+
+wghEdgeArray<intT> allPairsShortestPath(wghEdgeArray<intT> Gr) {
     intT n = Gr.n;
     wghEdge<intT> *edgeList = Gr.E;
 
@@ -59,13 +69,18 @@ char *allPairsShortestPath(wghEdgeArray<intT> Gr) {
     cout << "The all pairs shortest path table is:" << endl;
     printMatrix(weightTable, n);//the final config.
 
-    //clean
-    for (int k = 0; k < n; ++k) {
-        delete[] weightTable[k];
+    wghEdge<intT> *finalEdgeList = new wghEdge<intT>[n * n];
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < n; ++j) {
+            finalEdgeList[i * n + j] = wghEdge<intT>(i, j, weightTable[i][j]);
+        }
     }
 
-    delete[] weightTable;
+    clean(weightTable, n);
+
+    return wghEdgeArray<intT>(finalEdgeList, n, n * n);
 }
+
 
 int main(int argc, char **argv) {
     commandLine P(argc, argv, "-o <outFile>");
@@ -74,6 +89,18 @@ int main(int argc, char **argv) {
 
     wghEdgeArray<intT> G = benchIO::readWghEdgeArrayFromFile<intT>(iFile);
 
-    allPairsShortestPath(G);
+    wghEdgeArray<intT> finalG = allPairsShortestPath(G);
+
+
+    if (oFile != NULL) {
+        cout << "output file is " << oFile << endl;
+
+        //the final graph can be used to check correctness of other implementations
+        writeWghEdgeArrayToFile(finalG, oFile);
+
+        finalG.del();
+    } else {
+        cout << "output file is null" << endl;
+    }
 }
 

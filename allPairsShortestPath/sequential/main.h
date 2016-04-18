@@ -13,7 +13,7 @@
 using namespace std;
 
 extern "C" {
- char* allPairsShortestPath(graph<intT> Gr);
+ double** allPairsShortestPath(graph<intT> Gr);
 }
 
 inline void printMatrix(double **matrix, intT N) {
