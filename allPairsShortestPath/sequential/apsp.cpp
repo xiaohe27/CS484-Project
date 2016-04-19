@@ -1,10 +1,8 @@
 //
 // Created by xiaohe on 4/3/16.
 //
-#include "main.h"
-//#include <limits>
-#include "parseCommandLine.h"
-
+#include "apsp.h"
+#include "graphIO.h"
 using namespace std;
 
 
@@ -81,12 +79,7 @@ wghEdgeArray<intT> allPairsShortestPath(wghEdgeArray<intT> Gr) {
     return wghEdgeArray<intT>(finalEdgeList, n, n * n);
 }
 
-
-int main(int argc, char **argv) {
-    commandLine P(argc, argv, "-o <outFile>");
-    char *iFile = P.getArgument(0);
-    char *oFile = P.getOptionValue("-o");
-
+void write_allPairsShortestPath_2_file(char *iFile, char *oFile) {
     wghEdgeArray<intT> G = benchIO::readWghEdgeArrayFromFile<intT>(iFile);
 
     wghEdgeArray<intT> finalG = allPairsShortestPath(G);

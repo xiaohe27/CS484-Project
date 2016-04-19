@@ -13,7 +13,7 @@ CCFLAGS= -lrt -D ENABLE_DEBUG -std=c++11 -g
 
 all: main.exe
 
-main.exe: *.cpp
+main.exe:
 	$(CC) $(CCFLAGS) *.cpp -o main.exe
 
 clean:

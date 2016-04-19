@@ -24,6 +24,7 @@
 #define _BENCH_UTILS_INCLUDED
 #include <iostream>
 #include <algorithm>
+#include <boost/iostreams/device/mapped_file.hpp>
 
 #if defined(__APPLE__)
 #define PTCMPXCH "  cmpxchgl %2,%1\n"
@@ -207,4 +208,24 @@ template <class E1, class E2>
 
 }
 
+/**
+ * Adapted from http://www.cplusplus.com/forum/general/94032/
+ */
+inline bool areTwoFilesEqual(string filePath1, string filePath2) {
+    boost::iostreams::mapped_file_source f1(filePath1);
+    boost::iostreams::mapped_file_source f2(filePath2);
+
+    if(    f1.size() == f2.size()
+           && std::equal(f1.data(), f1.data() + f1.size(), f2.data())
+            ) {
+        std::cout << "The files are equal\n";
+        return true;
+    }
+
+    else
+    {
+        std::cout << "The files are not equal\n";
+        return false;
+    }
+}
 #endif // _BENCH_UTILS_INCLUDED
