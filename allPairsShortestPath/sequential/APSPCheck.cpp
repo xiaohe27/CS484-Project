@@ -30,15 +30,20 @@
 using namespace std;
 
 
-int main(int argc, char* argv[]) {
-    string iFileStr = "randLocalGraph_WE_5_3";
-    const char *iFile = iFileStr.c_str();
-    string oFileStr = "randLocalGraph_WE_5_3.tmp";
-    const char *oFile = oFileStr.c_str();
+int main(int argc, char *argv[]) {
+    const char *iFile = "randLocalGraph_WE_5_3";
+    const char *oFile = "randLocalGraph_WE_5_3.tmp";
 
-    string expectedFilePath = "randLocalGraph_WE_5_3.expected";
+    const char *expectedFilePath = "randLocalGraph_WE_5_3.expected";
 
     write_allPairsShortestPath_2_file(strdup(iFile), strdup(oFile));
-    bool eq = utils::areTwoFilesEqual(oFileStr, expectedFilePath);
+    bool eq = utils::areTwoFilesEqual(oFile, expectedFilePath);
+    if (eq) {
+        cout << "The result is correct!" << endl;
+        remove(oFile);
+    }
+    else
+        cout << "The actual output is not as expected!" << endl;
+
     assert(eq);
 }

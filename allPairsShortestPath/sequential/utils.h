@@ -24,7 +24,10 @@
 #define _BENCH_UTILS_INCLUDED
 #include <iostream>
 #include <algorithm>
-#include <boost/iostreams/device/mapped_file.hpp>
+
+#include <fstream>
+#include <string.h>
+#include <vector>
 
 #if defined(__APPLE__)
 #define PTCMPXCH "  cmpxchgl %2,%1\n"
@@ -124,24 +127,36 @@ inline bool SCAS(int *ptr, int oldv, int newv) {
 
 
 /**
- * Adapted from http://www.cplusplus.com/forum/general/94032/
+ * Adapted from the code at http://stackoverflow.com/questions/20285733/comparing-2-text-files
  */
-    inline bool areTwoFilesEqual(std::string filePath1, std::string filePath2) {
-        boost::iostreams::mapped_file_source f1(filePath1);
-        boost::iostreams::mapped_file_source f2(filePath2);
+    inline bool areTwoFilesEqual(const char* filePath1, const char* filePath2) {
+        std::vector <std::string> v1,v2;
+        std::ifstream file;
+        std::string str1, str2;
 
-        if(    f1.size() == f2.size()
-               && std::equal(f1.data(), f1.data() + f1.size(), f2.data())
-                ) {
-            std::cout << "The files are equal\n";
-            return true;
-        }
-
-        else
+        file.open(filePath1, std::ifstream::in);
+        while(std::getline(file, str1))
         {
-            std::cout << "The files are not equal\n";
-            return false;
+            v1.push_back(str1);
         }
+        file.close();
+
+        file.open(filePath2, std::ifstream::in);
+        while(std::getline(file, str2))
+        {
+            v2.push_back(str2);
+        }
+        file.close();
+
+        if (v1.size() != v2.size())
+            return false;
+
+        for (int i = 0; i < v1.size(); ++i) {
+            if (v1[i] != v2[i])
+                return false;
+        }
+
+        return true;
     }
 
 
