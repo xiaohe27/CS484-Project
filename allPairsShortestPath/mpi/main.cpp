@@ -21,8 +21,8 @@ int main(int argc, char **argv) {
 
     double diff;
 
-    double **weightTable;
-    double **weightTable_mpi;
+    double *weightTable;
+    double *weightTable_mpi;
 
     MPI_Init(&argc, &argv);
 
@@ -45,14 +45,14 @@ int main(int argc, char **argv) {
         n = Gr.n;
         wghEdge<intT> *edgeList = Gr.E;
         wghEdge<intT> curEdge;
-        weightTable = new double *[n];
-        weightTable_mpi = new double *[n];
+        weightTable = new double [n*n];
+        weightTable_mpi = new double [n*n];
         for (int i = 0; i < n; ++i) {
-            weightTable[i] = new double[n];
-            weightTable_mpi[i] = new double[n];
+            // weightTable[i] = new double[n];
+            // weightTable_mpi[i] = new double[n];
             for (int j = 0; j < n; ++j){
-                weightTable[i][j] = numeric_limits<double>::max();
-                weightTable_mpi[i][j] = numeric_limits<double>::max();
+                weightTable[ind(i,j)] = numeric_limits<double>::max();
+                weightTable_mpi[ind(i,j)] = numeric_limits<double>::max();
             }
         }
         for (int i = 0; i < Gr.m; ++i) {
@@ -64,12 +64,26 @@ int main(int argc, char **argv) {
             // cout << "edge " << i << " connects node " << u << " and node " << v
             // << ", with weight " << weight << endl;
 
-            if (weightTable[u][v] > weight){
-                weightTable[u][v] = weight;
-                weightTable_mpi[u][v] = weight;
+            if (weightTable[ind(u,v)] > weight){
+                weightTable[ind(u,v)] = weight;
+                weightTable_mpi[ind(u,v)] = weight;
             }
         }
     }
+
+    // if (rank == 0) {
+    //     printf("original table \n", rank);
+    //     for(int i = 0; i < n; i++){
+    //         printf("row %d: ", i);
+    //         for(int j = 0; j < n; j++)
+    //             if(weightTable_mpi[ind(i,j)] > 10)
+    //                 printf(" 0.00");
+    //             else
+    //                 printf(" %1.2f",i,weightTable_mpi[ind(i,j)]);
+    //         printf("\n");
+    //     }
+    //     printf("\n");
+    // }
 
     struct timespec start_ser, end_ser;
 
@@ -81,9 +95,9 @@ int main(int argc, char **argv) {
         for (int k = 0; k < n; ++k) {
             for (int j = 0; j < n; ++j) {
                 for (int i = 0; i < n; ++i) {
-                    double viaK = weightTable[i][k] + weightTable[k][j];
-                    if (weightTable[i][j] > viaK)
-                        weightTable[i][j] = viaK;
+                    double viaK = weightTable[ind(i,k)] + weightTable[ind(k,j)];
+                    if (weightTable[ind(i,j)] > viaK)
+                        weightTable[ind(i,j)] = viaK;
                 }
             }
         }
@@ -130,7 +144,25 @@ int main(int argc, char **argv) {
     else
         MPI_Scatterv(NULL, NULL, NULL, MPI_DOUBLE, local, row_per_pro * n, MPI_DOUBLE, 0, MPI_COMM_WORLD);
     
-    // MPI_Barrier(MPI_COMM_WORLD);
+    MPI_Barrier(MPI_COMM_WORLD);
+
+    // for(int r = 0; r < num_pro; r++) {
+    //     MPI_Barrier(MPI_COMM_WORLD);
+    //     if (r == rank) {
+    //         printf("rank: %d\n", rank);
+    //         for(int i = 0; i < row_per_pro; i++){
+    //             printf("row %d: ", i);
+    //             for(int j = 0; j < n; j++)
+    //                 if(local[ind(i,j)] > 10)
+    //                     printf(" 0.00");
+    //                 else
+    //                     printf(" %1.2f",i,local[ind(i,j)]);
+    //             printf("\n");
+    //         }
+    //     }
+    // }
+
+    
 
 
     // do algo
@@ -176,7 +208,7 @@ int main(int argc, char **argv) {
         bool break_flag = false;
         for (int i = 0; i < n && !break_flag; ++i) {
             for (int j = 0; j < n && !break_flag; ++j) {
-                if(weightTable[i][j] - weightTable_mpi[i][j] != 0){
+                if(weightTable[ind(i,j)] - weightTable_mpi[ind(i,j)] != 0){
                     printf("error!\n");
                     // break;
                     break_flag = true;
