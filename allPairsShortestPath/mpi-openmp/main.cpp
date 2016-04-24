@@ -166,6 +166,7 @@ int main(int argc, char **argv) {
 
 
     // do algo
+#pragma omp parallel for
     for (int k = 0; k < n; ++k) {
         has_rowK = k / row_per_pro;
         if (has_rowK >= num_pro)
