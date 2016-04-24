@@ -1,0 +1,4 @@
+mpirun -np 4 ./main.exe randLocalGraph_WE_5_1000
+Time taken for sequential version = 7690.002941 milliseconds
+Time taken for parallel   version = 915.621852 milliseconds
+
