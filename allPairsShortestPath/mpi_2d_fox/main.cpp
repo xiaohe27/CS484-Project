@@ -207,6 +207,7 @@ int main(int argc, char **argv) {
 
 
     for(int d = 1; d < n; d <<= 1){
+    // for(int d = 0; d < 3; d++){
         memcpy(col_m, local, sub_matrix_size * sub_matrix_size * sizeof(double));
         
         for(int step = 0; step < sqrt_q; step++){
@@ -219,6 +220,7 @@ int main(int argc, char **argv) {
                 // int sour = sub_matrix_X * sqrt_q + bcast;
                 MPI_Bcast(row_m, sub_matrix_size * sub_matrix_size, MPI_DOUBLE, bcast, comm_row);
             }
+        MPI_Barrier(MPI_COMM_WORLD);
 
             for (int k = 0; k < sub_matrix_size; ++k) {
                 for (int j = 0; j < sub_matrix_size; ++j) {
@@ -230,7 +232,24 @@ int main(int argc, char **argv) {
                 }
             }
 
+    //         for(int r = 0; r < num_pro; r++) {
+    //     MPI_Barrier(MPI_COMM_WORLD);
+    //     if (r == rank) {
+    //         printf("rank: %d\n", rank);
+    //         for(int i = 0; i < sub_matrix_size; i++){
+    //             printf("row %d: ", i);
+    //             for(int j = 0; j < sub_matrix_size; j++)
+    //                 if(res_m[i*sub_matrix_size + j] > 10)
+    //                     printf(" 0.00");
+    //                 else
+    //                     printf(" %1.2f",res_m[i*sub_matrix_size + j]);
+    //             printf("\n");
+    //         }
+    //     }
+    // }
+
             MPI_Sendrecv_replace(col_m, sub_matrix_size * sub_matrix_size, MPI_DOUBLE, dst_col, 0, src_col, 0, comm_col, MPI_STATUS_IGNORE);
+        MPI_Barrier(MPI_COMM_WORLD);
         
         }
 
@@ -304,8 +323,8 @@ int main(int argc, char **argv) {
         bool break_flag = false;
         for (int i = 0; i < n && !break_flag; ++i) {
             for (int j = 0; j < n && !break_flag; ++j) {
-                if(weightTable[ind(i,j)] - weightTable_mpi[i*n + j] > 0.0001){
-                    printf("error!\n");
+                if(abs(weightTable[ind(i,j)] - weightTable_mpi[i*n + j]) > 0.00001){
+                    printf("error at %d, %d \n", i, j);
                     // break;
                     break_flag = true;
                 }
