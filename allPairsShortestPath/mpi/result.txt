@@ -1,0 +1,10 @@
+running 100 nodes
+APPLICATION TERMINATED WITH THE EXIT STRING: Aborted (signal 6)
+running 1000 nodes
+APPLICATION TERMINATED WITH THE EXIT STRING: Aborted (signal 6)
+running 100 nodes
+Time taken for sequential version = 5.412650 milliseconds
+APPLICATION TERMINATED WITH THE EXIT STRING: Aborted (signal 6)
+running 1000 nodes
+Time taken for sequential version = 24318.395491 milliseconds
+APPLICATION TERMINATED WITH THE EXIT STRING: Segmentation fault (signal 11)
