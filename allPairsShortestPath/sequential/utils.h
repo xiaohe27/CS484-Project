@@ -25,6 +25,10 @@
 #include <iostream>
 #include <algorithm>
 
+#include <fstream>
+#include <string.h>
+#include <vector>
+
 #if defined(__APPLE__)
 #define PTCMPXCH "  cmpxchgl %2,%1\n"
 #else
@@ -121,6 +125,41 @@ inline bool SCAS(int *ptr, int oldv, int newv) {
   return ret;
 }
 
+
+/**
+ * Adapted from the code at http://stackoverflow.com/questions/20285733/comparing-2-text-files
+ */
+    inline bool areTwoFilesEqual(const char* filePath1, const char* filePath2) {
+        std::vector <std::string> v1,v2;
+        std::ifstream file;
+        std::string str1, str2;
+
+        file.open(filePath1, std::ifstream::in);
+        while(std::getline(file, str1))
+        {
+            v1.push_back(str1);
+        }
+        file.close();
+
+        file.open(filePath2, std::ifstream::in);
+        while(std::getline(file, str2))
+        {
+            v2.push_back(str2);
+        }
+        file.close();
+
+        if (v1.size() != v2.size())
+            return false;
+
+        for (int i = 0; i < v1.size(); ++i) {
+            if (v1[i] != v2[i])
+                return false;
+        }
+
+        return true;
+    }
+
+
 // The conditional should be removed by the compiler
 // this should work with pointer types, or pairs of integers
 template <class ET>
@@ -206,5 +245,6 @@ template <class E1, class E2>
   struct secondF {E2 operator() (std::pair<E1,E2> a) {return a.second;} };
 
 }
+
 
 #endif // _BENCH_UTILS_INCLUDED

@@ -8,12 +8,12 @@ LOCAL_REQUIRE =
 OBJS = APSP.o
 
 CC=g++
-CCFLAGS= -lrt -D ENABLE_DEBUG -std=c++11 -g
+CCFLAGS= -lrt -D ENABLE_DEBUG
 
 
 all: main.exe
 
-main.exe: *.cpp
+main.exe:
 	$(CC) $(CCFLAGS) *.cpp -o main.exe
 
 clean:
