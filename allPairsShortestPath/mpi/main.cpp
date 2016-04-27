@@ -20,7 +20,7 @@ int main(int argc, char **argv) {
     int has_rowK, row_per_pro;
 
     double diff;
-    double seqTime, parallelTime;
+    double seqTime, parallelTime = 0.0;
 
     double *weightTable;
     double *weightTable_mpi;
@@ -86,133 +86,138 @@ int main(int argc, char **argv) {
     //     printf("\n");
     // }
 
-    struct timespec start_ser, end_ser;
+    for (int x = 0; x < ITERS; ++x) {
+
+        struct timespec start_ser, end_ser;
 
 
-    // sequential version
-    clock_gettime(CLOCK_MONOTONIC, &start_ser);
+        // sequential version
+        clock_gettime(CLOCK_MONOTONIC, &start_ser);
 
-    if (rank == 0) {
-        for (int k = 0; k < n; ++k) {
-            for (int j = 0; j < n; ++j) {
-                for (int i = 0; i < n; ++i) {
-                    double viaK = weightTable[ind(i, k)] + weightTable[ind(k, j)];
-                    if (weightTable[ind(i, j)] > viaK)
-                        weightTable[ind(i, j)] = viaK;
+        if (rank == 0) {
+            for (int k = 0; k < n; ++k) {
+                for (int j = 0; j < n; ++j) {
+                    for (int i = 0; i < n; ++i) {
+                        double viaK = weightTable[ind(i, k)] + weightTable[ind(k, j)];
+                        if (weightTable[ind(i, j)] > viaK)
+                            weightTable[ind(i, j)] = viaK;
+                    }
                 }
             }
         }
-    }
 
-    clock_gettime(CLOCK_MONOTONIC, &end_ser);
+        clock_gettime(CLOCK_MONOTONIC, &end_ser);
 
-    diff = (double) ((double) BILLION * (end_ser.tv_sec - start_ser.tv_sec) + end_ser.tv_nsec - start_ser.tv_nsec) /
-           1000000;
+        diff = (double) ((double) BILLION * (end_ser.tv_sec - start_ser.tv_sec) + end_ser.tv_nsec - start_ser.tv_nsec) /
+               1000000;
 
-    if (rank == 0) {
-        seqTime = diff;
-        printf("Time taken for sequential version = %f milliseconds\n", (double) diff);
-    }
-
-    // parallel version
-    clock_gettime(CLOCK_MONOTONIC, &start_ser);
-
-    MPI_Bcast(&n, 1, MPI_INT, 0, MPI_COMM_WORLD);
-    // MPI_Barrier(MPI_COMM_WORLD);
-
-    // printf("here rank %d has n %d\n", rank, n);
-
-    row_per_pro = n / num_pro;
-    start = row_per_pro * rank;
-    // local  = (double*) malloc(sizeof(double) * row_per_pro * n);
-    // rowK_space = (double *) malloc(sizeof(double) * n);
-
-    local = new double[row_per_pro * n];
-    rowK_space = new double[n];
-
-
-    if (rank == 0) {
-        // sendcounts = (int*) malloc(sizeof(int) * num_pro);
-        // displs = (int*) malloc(sizeof(int) * num_pro);
-
-        sendcounts = new int[num_pro];
-        displs = new int[num_pro];
-        for (int i = 0; i < num_pro; ++i) {
-            sendcounts[i] = row_per_pro * n;
-            displs[i] = i * row_per_pro * n;
+        if (rank == 0) {
+            seqTime += diff;
+            printf("Time taken for sequential version = %f milliseconds\n", (double) diff);
         }
 
-        MPI_Scatterv(weightTable_mpi, sendcounts, displs, MPI_DOUBLE, local, row_per_pro * n, MPI_DOUBLE, 0,
-                     MPI_COMM_WORLD);
-    }
-    else
-        MPI_Scatterv(NULL, NULL, NULL, MPI_DOUBLE, local, row_per_pro * n, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+        // parallel version
+        clock_gettime(CLOCK_MONOTONIC, &start_ser);
 
-    MPI_Barrier(MPI_COMM_WORLD);
-
-    // for(int r = 0; r < num_pro; r++) {
-    //     MPI_Barrier(MPI_COMM_WORLD);
-    //     if (r == rank) {
-    //         printf("rank: %d\n", rank);
-    //         for(int i = 0; i < row_per_pro; i++){
-    //             printf("row %d: ", i);
-    //             for(int j = 0; j < n; j++)
-    //                 if(local[ind(i,j)] > 10)
-    //                     printf(" 0.00");
-    //                 else
-    //                     printf(" %1.2f",i,local[ind(i,j)]);
-    //             printf("\n");
-    //         }
-    //     }
-    // }
-
-
-
-
-    // do algo
-    for (int k = 0; k < n; ++k) {
-        has_rowK = k / row_per_pro;
-        if (has_rowK >= num_pro)
-            has_rowK = num_pro - 1;
-
-        if (has_rowK == rank)
-            rowK = &local[(k - start) * n];
-        else
-            rowK = rowK_space;
-
-        MPI_Bcast(rowK, n, MPI_DOUBLE, has_rowK, MPI_COMM_WORLD);
-
+        MPI_Bcast(&n, 1, MPI_INT, 0, MPI_COMM_WORLD);
         // MPI_Barrier(MPI_COMM_WORLD);
 
-        for (int i = 0; i < row_per_pro; ++i)
-            for (int j = 0; j < n; ++j)
-                if (local[ind(i, k)] + rowK[j] < local[ind(i, j)])
-                    local[ind(i, j)] = local[ind(i, k)] + rowK[j];
+        // printf("here rank %d has n %d\n", rank, n);
+
+        row_per_pro = n / num_pro;
+        start = row_per_pro * rank;
+        // local  = (double*) malloc(sizeof(double) * row_per_pro * n);
+        // rowK_space = (double *) malloc(sizeof(double) * n);
+
+        local = new double[row_per_pro * n];
+        rowK_space = new double[n];
+
+
+        if (rank == 0) {
+            // sendcounts = (int*) malloc(sizeof(int) * num_pro);
+            // displs = (int*) malloc(sizeof(int) * num_pro);
+
+            sendcounts = new int[num_pro];
+            displs = new int[num_pro];
+            for (int i = 0; i < num_pro; ++i) {
+                sendcounts[i] = row_per_pro * n;
+                displs[i] = i * row_per_pro * n;
+            }
+
+            MPI_Scatterv(weightTable_mpi, sendcounts, displs, MPI_DOUBLE, local, row_per_pro * n, MPI_DOUBLE, 0,
+                         MPI_COMM_WORLD);
+        }
+        else
+            MPI_Scatterv(NULL, NULL, NULL, MPI_DOUBLE, local, row_per_pro * n, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+
+        MPI_Barrier(MPI_COMM_WORLD);
+
+        // for(int r = 0; r < num_pro; r++) {
+        //     MPI_Barrier(MPI_COMM_WORLD);
+        //     if (r == rank) {
+        //         printf("rank: %d\n", rank);
+        //         for(int i = 0; i < row_per_pro; i++){
+        //             printf("row %d: ", i);
+        //             for(int j = 0; j < n; j++)
+        //                 if(local[ind(i,j)] > 10)
+        //                     printf(" 0.00");
+        //                 else
+        //                     printf(" %1.2f",i,local[ind(i,j)]);
+        //             printf("\n");
+        //         }
+        //     }
+        // }
+
+
+
+
+        // do algo
+        for (int k = 0; k < n; ++k) {
+            has_rowK = k / row_per_pro;
+            if (has_rowK >= num_pro)
+                has_rowK = num_pro - 1;
+
+            if (has_rowK == rank)
+                rowK = &local[(k - start) * n];
+            else
+                rowK = rowK_space;
+
+            MPI_Bcast(rowK, n, MPI_DOUBLE, has_rowK, MPI_COMM_WORLD);
+
+            // MPI_Barrier(MPI_COMM_WORLD);
+
+            for (int i = 0; i < row_per_pro; ++i)
+                for (int j = 0; j < n; ++j)
+                    if (local[ind(i, k)] + rowK[j] < local[ind(i, j)])
+                        local[ind(i, j)] = local[ind(i, k)] + rowK[j];
+        }
+        free(rowK_space);
+
+        MPI_Barrier(MPI_COMM_WORLD);
+
+
+        if (rank == 0)
+            MPI_Gatherv(local, row_per_pro * n, MPI_DOUBLE, weightTable_mpi, sendcounts, displs, MPI_DOUBLE, 0,
+                        MPI_COMM_WORLD);
+        else
+            MPI_Gatherv(local, row_per_pro * n, MPI_DOUBLE, NULL, NULL, NULL, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+
+        free(local);
+
+        clock_gettime(CLOCK_MONOTONIC, &end_ser);
+
+        diff = (double) ((double) BILLION * (end_ser.tv_sec - start_ser.tv_sec) + end_ser.tv_nsec - start_ser.tv_nsec) /
+               1000000;
+
+        if (rank == 0) {
+            parallelTime += diff;
+            printf("Time taken for parallel   version = %f milliseconds\n", (double) diff);
+        }
     }
-    free(rowK_space);
-
-    MPI_Barrier(MPI_COMM_WORLD);
-
-
-    if (rank == 0)
-        MPI_Gatherv(local, row_per_pro * n, MPI_DOUBLE, weightTable_mpi, sendcounts, displs, MPI_DOUBLE, 0,
-                    MPI_COMM_WORLD);
-    else
-        MPI_Gatherv(local, row_per_pro * n, MPI_DOUBLE, NULL, NULL, NULL, MPI_DOUBLE, 0, MPI_COMM_WORLD);
-
-    free(local);
-
-    clock_gettime(CLOCK_MONOTONIC, &end_ser);
-
-    diff = (double) ((double) BILLION * (end_ser.tv_sec - start_ser.tv_sec) + end_ser.tv_nsec - start_ser.tv_nsec) /
-           1000000;
 
     if (rank == 0) {
-        parallelTime = diff;
-        printf("Time taken for parallel   version = %f milliseconds\n", (double) diff);
-
         double iso_efficiency = seqTime / (num_pro * parallelTime);
-        printf("Iso efficiency is %f.", iso_efficiency);
+        printf("Iso efficiency is %f\n", iso_efficiency);
     }
 
     if (rank == 0) {

@@ -7,6 +7,8 @@ GLOBAL_REQUIRE = graph.h
 LOCAL_REQUIRE =
 OBJS = APSP.o
 
+ITERS=5
+
 CC=mpicxx
 CCFLAGS= -D ENABLE_DEBUG -std=c++11 -g
 
