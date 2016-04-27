@@ -20,6 +20,7 @@ int main(int argc, char **argv) {
     int sub_matrix_size, row_per_pro;
 
     double diff;
+    double seqTime, parallelTime;
 
     double *weightTable;
     double *weightTable_mpi;
@@ -125,8 +126,10 @@ int main(int argc, char **argv) {
 
     diff = (double)((double)BILLION*(end_ser.tv_sec-start_ser.tv_sec)+end_ser.tv_nsec-start_ser.tv_nsec)/1000000;
 
-    if(rank==0)
-    printf("Time taken for sequential version = %f milliseconds\n",(double)diff);
+    if(rank==0) {
+        seqTime = diff;
+        printf("Time taken for sequential version = %f milliseconds\n",(double)diff);
+    }
 
 
     // parallel version
@@ -268,8 +271,13 @@ int main(int argc, char **argv) {
 
     diff = (double)((double)BILLION*(end_ser.tv_sec-start_ser.tv_sec)+end_ser.tv_nsec-start_ser.tv_nsec)/1000000;
 
-    if(rank==0)
-    printf("Time taken for parallel   version = %f milliseconds\n",(double)diff);
+    if (rank == 0) {
+        parallelTime = diff;
+        printf("Time taken for parallel   version = %f milliseconds\n", (double) diff);
+
+        double iso_efficiency = seqTime / (num_pro * parallelTime);
+        printf("Iso efficiency is %f.", iso_efficiency);
+    }
 
     if(rank==0){
         bool break_flag = false;
