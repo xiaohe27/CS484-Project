@@ -90,50 +90,49 @@ int main(int argc, char **argv) {
     //     printf("\n");
     // }
 
-    for (int x = 0; x < ITERS; ++x) {
-
-        struct timespec start_ser, end_ser;
+    struct timespec start_ser, end_ser;
 
 
-        // sequential version
-        clock_gettime(CLOCK_MONOTONIC, &start_ser);
+    // sequential version
+    clock_gettime(CLOCK_MONOTONIC, &start_ser);
 
-        if (rank == 0) {
-            for (int k = 0; k < n; ++k) {
-                for (int j = 0; j < n; ++j) {
-                    for (int i = 0; i < n; ++i) {
-                        double viaK = weightTable[ind(i, k)] + weightTable[ind(k, j)];
-                        if (weightTable[ind(i, j)] > viaK)
-                            weightTable[ind(i, j)] = viaK;
-                    }
+    if (rank == 0) {
+        for (int k = 0; k < n; ++k) {
+            for (int j = 0; j < n; ++j) {
+                for (int i = 0; i < n; ++i) {
+                    double viaK = weightTable[ind(i, k)] + weightTable[ind(k, j)];
+                    if (weightTable[ind(i, j)] > viaK)
+                        weightTable[ind(i, j)] = viaK;
                 }
             }
         }
+    }
 
-        // if (rank == 0) {
-        //     printf("original table \n", rank);
-        //     for(int i = 0; i < n; i++){
-        //         printf("row %d: ", i);
-        //         for(int j = 0; j < n; j++)
-        //             if(weightTable[ind(i,j)] > 10)
-        //                 printf(" 0.00");
-        //             else
-        //                 printf(" %1.2f",weightTable[ind(i,j)]);
-        //         printf("\n");
-        //     }
-        //     printf("\n");
-        // }
+    // if (rank == 0) {
+    //     printf("original table \n", rank);
+    //     for(int i = 0; i < n; i++){
+    //         printf("row %d: ", i);
+    //         for(int j = 0; j < n; j++)
+    //             if(weightTable[ind(i,j)] > 10)
+    //                 printf(" 0.00");
+    //             else
+    //                 printf(" %1.2f",weightTable[ind(i,j)]);
+    //         printf("\n");
+    //     }
+    //     printf("\n");
+    // }
 
-        clock_gettime(CLOCK_MONOTONIC, &end_ser);
+    clock_gettime(CLOCK_MONOTONIC, &end_ser);
 
-        diff = (double) ((double) BILLION * (end_ser.tv_sec - start_ser.tv_sec) + end_ser.tv_nsec - start_ser.tv_nsec) /
-               1000000;
+    diff = (double) ((double) BILLION * (end_ser.tv_sec - start_ser.tv_sec) + end_ser.tv_nsec - start_ser.tv_nsec) /
+           1000000;
 
-        if (rank == 0) {
-            seqTime += diff;
-            printf("Time taken for sequential version = %f milliseconds\n", (double) diff);
-        }
+    if (rank == 0) {
+        seqTime = diff;
+        printf("Time taken for sequential version = %f milliseconds\n", (double) diff);
+    }
 
+    for (int x = 0; x < ITERS; ++x) {
 
         // parallel version
         clock_gettime(CLOCK_MONOTONIC, &start_ser);
