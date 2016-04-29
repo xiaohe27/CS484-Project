@@ -2,6 +2,6 @@ clean:
 	-rm *.o *~ 
 
 test: 
-	@echo "fake test"
+	cd allPairsShortestPath/sequential; make all; ./main.exe
 
 all: clean test
