@@ -1,4 +1,5 @@
 #include "main.h"
+#include "gettime.h"
 #include <pthread.h>
 #include "parseCommandLine.h"
 
@@ -44,6 +45,7 @@ void allPairsShortestPath(wghEdgeArray<intT> Gr) {
     //so we need to analyze the original weighted multi-graph
     //to obtain the initial configuration.
     double **weightTable = new double *[n];
+    double **weightTable_pthreads = new double *[n];
 
     for (int i = 0; i < n; ++i) {
         weightTable[i] = new double[n];
@@ -66,10 +68,24 @@ void allPairsShortestPath(wghEdgeArray<intT> Gr) {
             weightTable[u][v] = weight;
     }
 
-    //print the init config
-    cout << "Init config is " << endl;
-    printMatrix(weightTable, n);
+    for (int i = 0; i < n; ++i)
+    {
+        weightTable_pthreads[i] = new double[n];
+        for (int j = 0 ; j < n; j++)
+        {
+            weightTable_pthreads[i][j] = weightTable[i][j];
+        }
+    }
 
+    for (int k = 0; k < n; ++k) {
+        for (int j = 0; j < n; ++j) {
+            for (int i = 0; i < n; ++i) {
+                double viaK = weightTable[i][k] + weightTable[k][j];
+                if (weightTable[i][j] > viaK)
+                    weightTable[i][j] = viaK;
+            }
+        }
+    }
     
     int num_threads = 4;
     pthread_t * threads = (pthread_t *)malloc(sizeof(pthread_t) * num_threads);
@@ -79,22 +95,16 @@ void allPairsShortestPath(wghEdgeArray<intT> Gr) {
 
     split = (int)(n / num_threads);
 
+    _tm.start();
+
     for (int k = 0; k < n; ++k) {
         for (int j = 0; j < n; ++j) {
-
-            /*
-            for (int i = 0; i < n; ++i) {
-                double viaK = weightTable[i][k] + weightTable[k][j];
-                if (weightTable[i][j] > viaK)
-                    weightTable[i][j] = viaK;
-            }
-            */
             count = 0;
             remain = n % num_threads;
 
             for (int i = 0; i < num_threads; ++i) {
                 struct data * data = (struct data *)malloc(sizeof( struct data));
-                data->weightTable = weightTable;
+                data->weightTable = weightTable_pthreads;
                 data->size = split;
                 data->j = j;
                 data->k = k;
@@ -112,11 +122,22 @@ void allPairsShortestPath(wghEdgeArray<intT> Gr) {
 
         }
     }
-
+    printf("Time = %f\n", _tm.stop());
     free(threads);
 
-    cout << "The all pairs shortest path table is:" << endl;
-    printMatrix(weightTable, n);//the final config.
+
+
+    bool break_flag = false;
+    for (int i = 0; i < n && !break_flag; ++i) {
+        for (int j = 0; j < n && !break_flag; ++j) {
+            if(weightTable[i][j] - weightTable_pthreads[i][j] != 0){
+                printf("%f %f\n", weightTable[i][j] , weightTable_pthreads[i][j]);
+                break_flag = true;
+            }
+        }
+    }
+
+
 
     //clean
     for (int k = 0; k < n; ++k) {
@@ -134,7 +155,7 @@ int main(int argc, char **argv) {
     wghEdgeArray<intT> G = benchIO::readWghEdgeArrayFromFile<intT>(iFile);
 
     allPairsShortestPath(G);
-    
-    
+
+
 }
 
