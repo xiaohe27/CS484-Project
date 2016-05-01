@@ -287,6 +287,7 @@ int main(int argc, char **argv) {
     }
 
     if (rank == 0) {
+	parallelTime /= (double)ITERS;
         double iso_efficiency = seqTime / (num_pro * parallelTime);
         printf("Iso efficiency is %f\n", iso_efficiency);
     }
