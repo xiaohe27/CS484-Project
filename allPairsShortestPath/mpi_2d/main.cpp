@@ -22,7 +22,6 @@ int main(int argc, char **argv) {
     double diff;
     double seqTime, parallelTime = 0.0;
 
-    double *weightTable;
     double *weightTable_mpi;
 
     MPI_Status status;
@@ -50,13 +49,11 @@ int main(int argc, char **argv) {
         n = Gr.n;
         wghEdge<intT> *edgeList = Gr.E;
         wghEdge<intT> curEdge;
-        weightTable = new double[n * n];
         weightTable_mpi = new double[n * n];
         for (int i = 0; i < n; ++i) {
             // weightTable[i] = new double[n];
             // weightTable_mpi[i] = new double[n];
             for (int j = 0; j < n; ++j) {
-                weightTable[ind(i, j)] = numeric_limits<double>::max();
                 weightTable_mpi[ind(i, j)] = numeric_limits<double>::max();
             }
         }
@@ -69,8 +66,7 @@ int main(int argc, char **argv) {
             // cout << "edge " << i << " connects node " << u << " and node " << v
             // << ", with weight " << weight << endl;
 
-            if (weightTable[ind(u, v)] > weight) {
-                weightTable[ind(u, v)] = weight;
+            if (weightTable_mpi[ind(u, v)] > weight) {
                 weightTable_mpi[ind(u, v)] = weight;
             }
         }
@@ -91,46 +87,6 @@ int main(int argc, char **argv) {
     // }
 
     struct timespec start_ser, end_ser;
-
-
-    // sequential version
-    clock_gettime(CLOCK_MONOTONIC, &start_ser);
-
-    if (rank == 0) {
-        for (int k = 0; k < n; ++k) {
-            for (int j = 0; j < n; ++j) {
-                for (int i = 0; i < n; ++i) {
-                    double viaK = weightTable[ind(i, k)] + weightTable[ind(k, j)];
-                    if (weightTable[ind(i, j)] > viaK)
-                        weightTable[ind(i, j)] = viaK;
-                }
-            }
-        }
-    }
-
-    // if (rank == 0) {
-    //     printf("original table \n", rank);
-    //     for(int i = 0; i < n; i++){
-    //         printf("row %d: ", i);
-    //         for(int j = 0; j < n; j++)
-    //             if(weightTable[ind(i,j)] > 10)
-    //                 printf(" 0.00");
-    //             else
-    //                 printf(" %1.2f",weightTable[ind(i,j)]);
-    //         printf("\n");
-    //     }
-    //     printf("\n");
-    // }
-
-    clock_gettime(CLOCK_MONOTONIC, &end_ser);
-
-    diff = (double) ((double) BILLION * (end_ser.tv_sec - start_ser.tv_sec) + end_ser.tv_nsec - start_ser.tv_nsec) /
-           1000000;
-
-    if (rank == 0) {
-        seqTime = diff;
-        printf("Time taken for sequential version = %f milliseconds\n", (double) diff);
-    }
 
     for (int x = 0; x < ITERS; ++x) {
 
@@ -290,22 +246,23 @@ int main(int argc, char **argv) {
 	parallelTime /= (double)ITERS;
         printf("Avg parallel time is %f\n", parallelTime);
 
-        double iso_efficiency = seqTime / (num_pro * parallelTime);
-        printf("Iso efficiency is %f\n", iso_efficiency);
+//        double iso_efficiency = seqTime / (num_pro * parallelTime);
+//        printf("Iso efficiency is %f\n", iso_efficiency);
     }
 
-    if (rank == 0) {
-        bool break_flag = false;
-        for (int i = 0; i < n && !break_flag; ++i) {
-            for (int j = 0; j < n && !break_flag; ++j) {
-                if (weightTable[ind(i, j)] - weightTable_mpi[i * n + j] != 0) {
-                    printf("error!\n");
-                    // break;
-                    break_flag = true;
-                }
-            }
-        }
-    }
+    
+//    if (rank == 0) {
+//        bool break_flag = false;
+//        for (int i = 0; i < n && !break_flag; ++i) {
+//            for (int j = 0; j < n && !break_flag; ++j) {
+//                if (weightTable[ind(i, j)] - weightTable_mpi[i * n + j] != 0) {
+//                    printf("error!\n");
+//                    // break;
+//                    break_flag = true;
+//                }
+//            }
+//        }
+//    }
 
     MPI_Finalize();
 }
