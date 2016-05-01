@@ -86,35 +86,37 @@ int main(int argc, char **argv) {
     //     printf("\n");
     // }
 
-    for (int x = 0; x < ITERS; ++x) {
-
-        struct timespec start_ser, end_ser;
+    struct timespec start_ser, end_ser;
 
 
-        // sequential version
-        clock_gettime(CLOCK_MONOTONIC, &start_ser);
+    // sequential version
+    clock_gettime(CLOCK_MONOTONIC, &start_ser);
 
-        if (rank == 0) {
-            for (int k = 0; k < n; ++k) {
-                for (int j = 0; j < n; ++j) {
-                    for (int i = 0; i < n; ++i) {
-                        double viaK = weightTable[ind(i, k)] + weightTable[ind(k, j)];
-                        if (weightTable[ind(i, j)] > viaK)
-                            weightTable[ind(i, j)] = viaK;
-                    }
+    if (rank == 0) {
+        for (int k = 0; k < n; ++k) {
+            for (int j = 0; j < n; ++j) {
+                for (int i = 0; i < n; ++i) {
+                    double viaK = weightTable[ind(i, k)] + weightTable[ind(k, j)];
+                    if (weightTable[ind(i, j)] > viaK)
+                        weightTable[ind(i, j)] = viaK;
                 }
             }
         }
+    }
 
-        clock_gettime(CLOCK_MONOTONIC, &end_ser);
 
-        diff = (double) ((double) BILLION * (end_ser.tv_sec - start_ser.tv_sec) + end_ser.tv_nsec - start_ser.tv_nsec) /
-               1000000;
+    clock_gettime(CLOCK_MONOTONIC, &end_ser);
 
-        if (rank == 0) {
-            seqTime += diff;
-            printf("Time taken for sequential version = %f milliseconds\n", (double) diff);
-        }
+    diff = (double) ((double) BILLION * (end_ser.tv_sec - start_ser.tv_sec) + end_ser.tv_nsec - start_ser.tv_nsec) /
+           1000000;
+
+    if (rank == 0) {
+        seqTime = diff;
+        printf("Time taken for sequential version = %f milliseconds\n", (double) diff);
+    }
+
+
+    for (int x = 0; x < ITERS; ++x) {
 
         // parallel version
         clock_gettime(CLOCK_MONOTONIC, &start_ser);
@@ -211,11 +213,14 @@ int main(int argc, char **argv) {
 
         if (rank == 0) {
             parallelTime += diff;
-            printf("Time taken for parallel   version = %f milliseconds\n", (double) diff);
+//            printf("Time taken for parallel   version = %f milliseconds\n", (double) diff);
         }
     }
 
     if (rank == 0) {
+        parallelTime /= (double)ITERS;
+        printf("Avg parallel time is %f\n", parallelTime);
+
         double iso_efficiency = seqTime / (num_pro * parallelTime);
         printf("Iso efficiency is %f\n", iso_efficiency);
     }
