@@ -1,0 +1,9 @@
+Hypothesis:
+
+the sequential algorithm is executed in the beginning.
+so it remains a lot of caches, which can be used in the later mpi algorithm.
+
+In a setting of 3 computing nodes, with 12 cores per node, the sequential algorithm is
+performed by the process 0, which is located in one of the computing node. So in the 
+later mpi algorithm's execution, there will be at least 12 processes in the computing node
+ where sequential algorithm was performed getting advantages of the caches.
