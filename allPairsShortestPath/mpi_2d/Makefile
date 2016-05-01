@@ -11,10 +11,15 @@ CC=mpicxx
 CCFLAGS= -D ENABLE_DEBUG -std=c++11 -g
 
 
-all: main.exe
+all: clean main.exe
 
-main.exe: *.cpp
-	$(CC) -DITERS=5 $(CCFLAGS) *.cpp -o main.exe
+main.exe:
+	$(CC) -DITERS=5 $(CCFLAGS) main.cpp -o main.exe
 
 clean:
 	rm -f *.exe $(TARGETS)
+
+seq: clean seq.exe
+
+seq.exe:
+	$(CC) -DITERS=5 $(CCFLAGS) sequential.cpp -o seq.exe
