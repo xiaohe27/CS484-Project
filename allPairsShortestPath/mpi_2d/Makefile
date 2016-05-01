@@ -23,3 +23,9 @@ seq: clean seq.exe
 
 seq.exe:
 	$(CC) -DITERS=5 $(CCFLAGS) sequential.cpp -o seq.exe
+
+
+seqMPI: clean seqMPI.exe
+
+seqMPI.exe:
+	$(CC) -DITERS=5 $(CCFLAGS) seq_mpi.cpp -o seq_mpi.exe
