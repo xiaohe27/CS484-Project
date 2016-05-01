@@ -125,8 +125,6 @@ void allPairsShortestPath(wghEdgeArray<intT> Gr) {
     printf("Time = %f\n", _tm.stop());
     free(threads);
 
-
-
     bool break_flag = false;
     for (int i = 0; i < n && !break_flag; ++i) {
         for (int j = 0; j < n && !break_flag; ++j) {
@@ -137,9 +135,6 @@ void allPairsShortestPath(wghEdgeArray<intT> Gr) {
         }
     }
 
-
-
-    //clean
     for (int k = 0; k < n; ++k) {
         delete[] weightTable[k];
     }
@@ -155,7 +150,5 @@ int main(int argc, char **argv) {
     wghEdgeArray<intT> G = benchIO::readWghEdgeArrayFromFile<intT>(iFile);
 
     allPairsShortestPath(G);
-
-
 }
 
