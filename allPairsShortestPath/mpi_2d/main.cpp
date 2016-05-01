@@ -282,12 +282,14 @@ int main(int argc, char **argv) {
 
         if (rank == 0) {
             parallelTime += diff;
-            printf("Time taken for parallel   version = %f milliseconds\n", (double) diff);
+//            printf("Time taken for parallel   version = %f milliseconds\n", (double) diff);
         }
     }
 
     if (rank == 0) {
 	parallelTime /= (double)ITERS;
+        printf("Avg parallel time is %f\n", parallelTime);
+
         double iso_efficiency = seqTime / (num_pro * parallelTime);
         printf("Iso efficiency is %f\n", iso_efficiency);
     }
