@@ -1,0 +1,31 @@
+#!/bin/bash
+
+#PBS -q cs
+#PBS -l walltime=00:25:00
+#PBS -l nodes=2:ppn=24
+#PBS -N CS484_proj
+#PBS -j oe
+
+cd $PBS_O_WORKDIR
+
+echo "running 3840 nodes" > result.txt
+mpirun -np 2 ./main.exe randLocalGraph_WE_5_3840 >> result.txt
+
+echo "running 3840 nodes" >> result.txt
+mpirun -np 4 ./main.exe randLocalGraph_WE_5_3840 >> result.txt
+
+echo "running 3840 nodes" >> result.txt
+mpirun -np 8 ./main.exe randLocalGraph_WE_5_3840 >> result.txt
+
+echo "running 3840 nodes" >> result.txt
+mpirun -np 16 ./main.exe randLocalGraph_WE_5_3840 >> result.txt
+
+echo "running 3840 nodes" >> result.txt
+mpirun -np 25 ./main.exe randLocalGraph_WE_5_3840 >> result.txt
+
+echo "running 3840 nodes" >> result.txt
+mpirun -np 36 ./main.exe randLocalGraph_WE_5_3840 >> result.txt
+
+echo "running 3840 nodes" >> result.txt
+mpirun -np 48 ./main.exe randLocalGraph_WE_5_3840 >> result.txt
+
