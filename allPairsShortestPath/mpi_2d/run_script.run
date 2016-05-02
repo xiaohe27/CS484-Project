@@ -2,19 +2,26 @@
 
 #PBS -q cs
 #PBS -l walltime=00:25:00
-#PBS -l nodes=3:ppn=12
+#PBS -l nodes=2:ppn=12
 #PBS -N CS484_proj
 #PBS -j oe
 
 cd $PBS_O_WORKDIR
 
-echo "running 1,00 nodes" > result.txt
-mpirun -np 36 ./main.exe randLocalGraph_WE_5_100 >> result.txt
+echo "running 120 nodes" > result.txt
+mpirun -np 16 ./main.exe randLocalGraph_WE_5_120 >> result.txt
 
-echo "running 2,00 nodes" >> result.txt
-mpirun -np 36 ./main.exe randLocalGraph_WE_5_200 >> result.txt
+echo "running 240 nodes" >> result.txt
+mpirun -np 16 ./main.exe randLocalGraph_WE_5_240 >> result.txt
 
+echo "running 480 nodes" >> result.txt
+mpirun -np 16 ./main.exe randLocalGraph_WE_5_480 >> result.txt
 
-echo "running 4,00 nodes" >> result.txt
-mpirun -np 36 ./main.exe randLocalGraph_WE_5_400 >> result.txt
+echo "running 960 nodes" >> result.txt
+mpirun -np 16 ./main.exe randLocalGraph_WE_5_960 >> result.txt
 
+echo "running 1920 nodes" >> result.txt
+mpirun -np 16 ./main.exe randLocalGraph_WE_5_1920 >> result.txt
+
+echo "running 3840 nodes" >> result.txt
+mpirun -np 16 ./main.exe randLocalGraph_WE_5_3840 >> result.txt
