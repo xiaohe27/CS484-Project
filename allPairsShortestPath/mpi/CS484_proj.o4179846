@@ -1,0 +1,39 @@
+----------------------------------------
+Begin Torque Prologue (Fri Apr 29 13:52:10 2016)
+Job ID:           4179846.cc-mgmt1.campuscluster.illinois.edu
+Username:         hexiao2
+Group:            cs-courses
+Job Name:         CS484_proj
+Limits:           neednodes=2:ppn=12,nodes=2:ppn=12,walltime=00:25:00
+Job Queue:        cs
+Account:          cs-courses
+Nodes:            golub161 golub162
+End Torque Prologue
+----------------------------------------
+Assertion failed in file src/mpi/coll/helper_fns.c at line 480: MPIU_Object_get_ref(((send_req_ptr))) >= 0
+internal ABORT - process 23
+[proxy:0:0@golub161] HYD_pmcd_pmip_control_cmd_cb (pm/pmiserv/pmip_cb.c:885): assert (!closed) failed
+[proxy:0:0@golub161] HYDT_dmxu_poll_wait_for_event (tools/demux/demux_poll.c:76): callback returned error status
+[proxy:0:0@golub161] main (pm/pmiserv/pmip.c:206): demux engine error waiting for event
+[mpiexec@golub161] HYDT_bscu_wait_for_completion (tools/bootstrap/utils/bscu_wait.c:76): one of the processes terminated badly; aborting
+[mpiexec@golub161] HYDT_bsci_wait_for_completion (tools/bootstrap/src/bsci_wait.c:23): launcher returned error waiting for completion
+[mpiexec@golub161] HYD_pmci_wait_for_completion (pm/pmiserv/pmiserv_pmci.c:218): launcher returned error waiting for completion
+[mpiexec@golub161] main (ui/mpich/mpiexec.c:344): process manager error waiting for completion
+----------------------------------------
+Begin Torque Epilogue (Fri Apr 29 13:53:28 2016)
+Job ID:           4179846.cc-mgmt1.campuscluster.illinois.edu
+Username:         hexiao2
+Group:            cs-courses
+Job Name:         CS484_proj
+Session:          17206
+Limits:           neednodes=2:ppn=12,nodes=2:ppn=12,walltime=00:25:00
+Resources:        cput=00:10:00,energy_used=0,mem=112924kb,vmem=1323980kb,walltime=00:01:14
+Job Queue:        cs
+Account:          cs-courses
+Nodes:            golub161 golub162
+ssh: connect to host mic1 port 22: Connection refused
+lost connection
+ssh: connect to host mic1 port 22: Connection refused
+lost connection
+End Torque Epilogue
+----------------------------------------

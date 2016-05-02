@@ -1,0 +1,30 @@
+----------------------------------------
+Begin Torque Prologue (Sun May  1 16:25:27 2016)
+Job ID:           4194780.cc-mgmt1.campuscluster.illinois.edu
+Username:         hexiao2
+Group:            cs-courses
+Job Name:         CS484_proj
+Limits:           neednodes=2:ppn=12,nodes=2:ppn=12,walltime=00:25:00
+Job Queue:        cs
+Account:          cs-courses
+Nodes:            golub297 golub298
+End Torque Prologue
+----------------------------------------
+----------------------------------------
+Begin Torque Epilogue (Sun May  1 16:25:37 2016)
+Job ID:           4194780.cc-mgmt1.campuscluster.illinois.edu
+Username:         hexiao2
+Group:            cs-courses
+Job Name:         CS484_proj
+Session:          111835
+Limits:           neednodes=2:ppn=12,nodes=2:ppn=12,walltime=00:25:00
+Resources:        cput=00:00:00,energy_used=0,mem=0kb,vmem=0kb,walltime=00:00:10
+Job Queue:        cs
+Account:          cs-courses
+Nodes:            golub297 golub298
+ssh: connect to host mic1 port 22: Connection refused
+lost connection
+ssh: connect to host mic1 port 22: Connection refused
+lost connection
+End Torque Epilogue
+----------------------------------------

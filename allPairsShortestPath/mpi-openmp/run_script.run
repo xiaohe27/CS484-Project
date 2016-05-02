@@ -2,7 +2,7 @@
 
 #PBS -q cs
 #PBS -l walltime=00:25:00
-#PBS -l nodes=2:ppn=12
+#PBS -l nodes=8:ppn=24
 #PBS -N CS484_proj
 #PBS -j oe
 

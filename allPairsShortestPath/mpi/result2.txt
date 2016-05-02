@@ -1,0 +1,8 @@
+running 1920 nodes
+Time taken for sequential version = 60073.796261 milliseconds
+Avg parallel time is 2233.325669
+Iso efficiency is 1.681175
+running 3840 nodes
+Time taken for sequential version = 581524.718355 milliseconds
+Avg parallel time is 14973.288294
+Iso efficiency is 2.427342

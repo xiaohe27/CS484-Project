@@ -1,0 +1,58 @@
+----------------------------------------
+Begin Torque Prologue (Sun May  1 16:21:06 2016)
+Job ID:           4194774.cc-mgmt1.campuscluster.illinois.edu
+Username:         hexiao2
+Group:            cs-courses
+Job Name:         CS484_proj
+Limits:           neednodes=2:ppn=12,nodes=2:ppn=12,walltime=00:25:00
+Job Queue:        cs
+Account:          cs-courses
+Nodes:            golub297 golub298
+End Torque Prologue
+----------------------------------------
+[proxy:0:1@golub297] HYD_pmcd_pmip_control_cmd_cb (pm/pmiserv/pmip_cb.c:885): assert (!closed) failed
+[proxy:0:1@golub297] HYDT_dmxu_poll_wait_for_event (tools/demux/demux_poll.c:76): callback returned error status
+[proxy:0:1@golub297] main (pm/pmiserv/pmip.c:206): demux engine error waiting for event
+[mpiexec@golub298] HYDT_bscu_wait_for_completion (tools/bootstrap/utils/bscu_wait.c:76): one of the processes terminated badly; aborting
+[mpiexec@golub298] HYDT_bsci_wait_for_completion (tools/bootstrap/src/bsci_wait.c:23): launcher returned error waiting for completion
+[mpiexec@golub298] HYD_pmci_wait_for_completion (pm/pmiserv/pmiserv_pmci.c:218): launcher returned error waiting for completion
+[mpiexec@golub298] main (ui/mpich/mpiexec.c:344): process manager error waiting for completion
+[proxy:0:1@golub297] HYD_pmcd_pmip_control_cmd_cb (pm/pmiserv/pmip_cb.c:885): assert (!closed) failed
+[proxy:0:1@golub297] HYDT_dmxu_poll_wait_for_event (tools/demux/demux_poll.c:76): callback returned error status
+[proxy:0:1@golub297] main (pm/pmiserv/pmip.c:206): demux engine error waiting for event
+[mpiexec@golub298] HYDT_bscu_wait_for_completion (tools/bootstrap/utils/bscu_wait.c:76): one of the processes terminated badly; aborting
+[mpiexec@golub298] HYDT_bsci_wait_for_completion (tools/bootstrap/src/bsci_wait.c:23): launcher returned error waiting for completion
+[mpiexec@golub298] HYD_pmci_wait_for_completion (pm/pmiserv/pmiserv_pmci.c:218): launcher returned error waiting for completion
+[mpiexec@golub298] main (ui/mpich/mpiexec.c:344): process manager error waiting for completion
+[proxy:0:1@golub297] HYD_pmcd_pmip_control_cmd_cb (pm/pmiserv/pmip_cb.c:885): assert (!closed) failed
+[proxy:0:1@golub297] HYDT_dmxu_poll_wait_for_event (tools/demux/demux_poll.c:76): callback returned error status
+[proxy:0:1@golub297] main (pm/pmiserv/pmip.c:206): demux engine error waiting for event
+[mpiexec@golub298] HYDT_bscu_wait_for_completion (tools/bootstrap/utils/bscu_wait.c:76): one of the processes terminated badly; aborting
+[mpiexec@golub298] HYDT_bsci_wait_for_completion (tools/bootstrap/src/bsci_wait.c:23): launcher returned error waiting for completion
+[mpiexec@golub298] HYD_pmci_wait_for_completion (pm/pmiserv/pmiserv_pmci.c:218): launcher returned error waiting for completion
+[mpiexec@golub298] main (ui/mpich/mpiexec.c:344): process manager error waiting for completion
+[proxy:0:1@golub297] HYD_pmcd_pmip_control_cmd_cb (pm/pmiserv/pmip_cb.c:885): assert (!closed) failed
+[proxy:0:1@golub297] HYDT_dmxu_poll_wait_for_event (tools/demux/demux_poll.c:76): callback returned error status
+[proxy:0:1@golub297] main (pm/pmiserv/pmip.c:206): demux engine error waiting for event
+[mpiexec@golub298] HYDT_bscu_wait_for_completion (tools/bootstrap/utils/bscu_wait.c:76): one of the processes terminated badly; aborting
+[mpiexec@golub298] HYDT_bsci_wait_for_completion (tools/bootstrap/src/bsci_wait.c:23): launcher returned error waiting for completion
+[mpiexec@golub298] HYD_pmci_wait_for_completion (pm/pmiserv/pmiserv_pmci.c:218): launcher returned error waiting for completion
+[mpiexec@golub298] main (ui/mpich/mpiexec.c:344): process manager error waiting for completion
+----------------------------------------
+Begin Torque Epilogue (Sun May  1 16:21:09 2016)
+Job ID:           4194774.cc-mgmt1.campuscluster.illinois.edu
+Username:         hexiao2
+Group:            cs-courses
+Job Name:         CS484_proj
+Session:          111656
+Limits:           neednodes=2:ppn=12,nodes=2:ppn=12,walltime=00:25:00
+Resources:        cput=00:00:00,energy_used=0,mem=0kb,vmem=0kb,walltime=00:00:02
+Job Queue:        cs
+Account:          cs-courses
+Nodes:            golub297 golub298
+ssh: connect to host mic1 port 22: Connection refused
+lost connection
+ssh: connect to host mic1 port 22: Connection refused
+lost connection
+End Torque Epilogue
+----------------------------------------

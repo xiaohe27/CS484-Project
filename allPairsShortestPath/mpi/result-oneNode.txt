@@ -1,0 +1,24 @@
+running 100 nodes
+Time taken for sequential version = 5.467401 milliseconds
+Time taken for parallel   version = 2.541317 milliseconds
+Time taken for sequential version = 5.106761 milliseconds
+Time taken for parallel   version = 0.610587 milliseconds
+Time taken for sequential version = 5.071717 milliseconds
+Time taken for parallel   version = 0.597159 milliseconds
+Time taken for sequential version = 5.067412 milliseconds
+Time taken for parallel   version = 0.841108 milliseconds
+Time taken for sequential version = 5.065948 milliseconds
+Time taken for parallel   version = 0.595048 milliseconds
+Iso efficiency is 0.497168
+running 1000 nodes
+Time taken for sequential version = 5348.452227 milliseconds
+Time taken for parallel   version = 423.412710 milliseconds
+Time taken for sequential version = 5272.470013 milliseconds
+Time taken for parallel   version = 410.106792 milliseconds
+Time taken for sequential version = 5237.423381 milliseconds
+Time taken for parallel   version = 409.290562 milliseconds
+Time taken for sequential version = 5265.720675 milliseconds
+Time taken for parallel   version = 408.975839 milliseconds
+Time taken for sequential version = 5264.522391 milliseconds
+Time taken for parallel   version = 408.920544 milliseconds
+Iso efficiency is 1.280560
