@@ -14,7 +14,7 @@ CCFLAGS= -D ENABLE_DEBUG -std=c++11 -g
 all: clean main.exe
 
 main.exe:
-	$(CC) -DITERS=5 $(CCFLAGS) main.cpp -o main.exe
+	$(CC) -DITERS=1 -DNUM_THREADS=16 $(CCFLAGS) main.cpp -o main.exe
 
 clean:
 	rm -f *.exe $(TARGETS)

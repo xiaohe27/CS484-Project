@@ -22,7 +22,7 @@ clean:
 seq: clean seq.exe
 
 seq.exe:
-	$(CC) -DITERS=5 $(CCFLAGS) sequential.cpp -o seq.exe
+	icc $(CCFLAGS) -DNUM_THREADS=16 sequential.cpp -o seq.exe
 
 
 seqMPI: clean seqMPI.exe

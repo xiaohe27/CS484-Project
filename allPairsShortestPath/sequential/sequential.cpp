@@ -75,11 +75,8 @@ int main(int argc, char **argv) {
 // sequential version
     clock_gettime(CLOCK_MONOTONIC, &start_ser);
 
-#pragma omp parallel for
     for (int k = 0; k < n; ++k) {
-//#pragma omp parallel for
         for (int j = 0; j < n; ++j) {
-//#pragma omp parallel for
             for (int i = 0; i < n; ++i) {
                 double viaK = weightTable[ind(i, k)] + weightTable[ind(k, j)];
                 if (weightTable[ind(i, j)] > viaK)
