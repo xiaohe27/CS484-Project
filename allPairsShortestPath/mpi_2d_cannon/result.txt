@@ -1,0 +1,6 @@
+running 100 nodes
+Time taken for sequential version = 4.925431 milliseconds
+Time taken for parallel   version = 30.777368 milliseconds
+running 1000 nodes
+Time taken for sequential version = 10341.815534 milliseconds
+Time taken for parallel   version = 8014.779051 milliseconds
