@@ -23,6 +23,8 @@ void * computeWeightTable(void * data)
     int index = paralleldata->index;
     int size = paralleldata->size;
 
+    //printf("j = %d, k = %d\n", j, k);
+
     for (int i = 0; i < size; ++i) {
         double viaK = weightTable[i + index][k] + weightTable[k][j];
         if (weightTable[i + index][j] > viaK)
@@ -37,7 +39,7 @@ void allPairsShortestPath(wghEdgeArray<intT> Gr) {
     intT n = Gr.n;
     wghEdge<intT> *edgeList = Gr.E;
 
-//    cout << "number of nodes is " << n << ", and number of edges is " << Gr.m << "." << endl;
+    cout << "number of nodes is " << n << ", and number of edges is " << Gr.m << "." << endl;
 
     wghEdge<intT> curEdge;
 
@@ -67,15 +69,17 @@ void allPairsShortestPath(wghEdgeArray<intT> Gr) {
         if (weightTable[u][v] > weight)
             weightTable[u][v] = weight;
     }
-
     for (int i = 0; i < n; ++i)
     {
         weightTable_pthreads[i] = new double[n];
         for (int j = 0 ; j < n; j++)
         {
+
             weightTable_pthreads[i][j] = weightTable[i][j];
         }
     }
+   
+    /*
 
     for (int k = 0; k < n; ++k) {
         for (int j = 0; j < n; ++j) {
@@ -86,7 +90,9 @@ void allPairsShortestPath(wghEdgeArray<intT> Gr) {
             }
         }
     }
-    
+
+    */
+
     int num_threads = 16;
     pthread_t * threads = (pthread_t *)malloc(sizeof(pthread_t) * num_threads);
     int remain = 0;
@@ -103,6 +109,7 @@ void allPairsShortestPath(wghEdgeArray<intT> Gr) {
             remain = n % num_threads;
 
             for (int i = 0; i < num_threads; ++i) {
+
                 struct data * data = (struct data *)malloc(sizeof( struct data));
                 data->weightTable = weightTable_pthreads;
                 data->size = split;
@@ -125,6 +132,8 @@ void allPairsShortestPath(wghEdgeArray<intT> Gr) {
     printf("Time = %f\n", _tm.stop());
     free(threads);
 
+    /*
+
     bool break_flag = false;
     for (int i = 0; i < n && !break_flag; ++i) {
         for (int j = 0; j < n && !break_flag; ++j) {
@@ -134,6 +143,8 @@ void allPairsShortestPath(wghEdgeArray<intT> Gr) {
             }
         }
     }
+
+    */
 
     for (int k = 0; k < n; ++k) {
         delete[] weightTable[k];
