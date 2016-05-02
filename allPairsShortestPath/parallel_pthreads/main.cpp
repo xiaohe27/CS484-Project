@@ -37,7 +37,7 @@ void allPairsShortestPath(wghEdgeArray<intT> Gr) {
     intT n = Gr.n;
     wghEdge<intT> *edgeList = Gr.E;
 
-    cout << "number of nodes is " << n << ", and number of edges is " << Gr.m << "." << endl;
+//    cout << "number of nodes is " << n << ", and number of edges is " << Gr.m << "." << endl;
 
     wghEdge<intT> curEdge;
 
@@ -61,8 +61,8 @@ void allPairsShortestPath(wghEdgeArray<intT> Gr) {
         int v = curEdge.v;
         double weight = curEdge.weight;
 
-        cout << "edge " << i << " connects node " << u << " and node " << v
-        << ", with weight " << weight << endl;
+//        cout << "edge " << i << " connects node " << u << " and node " << v
+//        << ", with weight " << weight << endl;
 
         if (weightTable[u][v] > weight)
             weightTable[u][v] = weight;
@@ -87,7 +87,7 @@ void allPairsShortestPath(wghEdgeArray<intT> Gr) {
         }
     }
     
-    int num_threads = 4;
+    int num_threads = 16;
     pthread_t * threads = (pthread_t *)malloc(sizeof(pthread_t) * num_threads);
     int remain = 0;
     int split = 0;

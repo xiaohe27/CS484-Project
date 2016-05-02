@@ -11,7 +11,7 @@ CC=g++
 CCFLAGS= -D ENABLE_DEBUG -std=c++11 -g
 
 
-all: main.exe
+all: clean main.exe
 
 main.exe: *.cpp
 	$(CC) $(CCFLAGS) *.cpp -o main.exe
