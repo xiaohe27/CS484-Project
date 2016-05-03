@@ -8,8 +8,8 @@ using namespace std;
 struct data {
  double ** weightTable;
  int size;
+ int n;
  int index;
- int j;
  int k;
 };
 
@@ -18,18 +18,19 @@ void * computeWeightTable(void * data)
     struct data * paralleldata = (struct data *)data;
 
     double ** weightTable = paralleldata->weightTable;
-    int j = paralleldata->j;
     int k = paralleldata->k;
     int index = paralleldata->index;
     int size = paralleldata->size;
+    int n = paralleldata->n;
 
-    //printf("j = %d, k = %d\n", j, k);
-
-    for (int i = 0; i < size; ++i) {
-        double viaK = weightTable[i + index][k] + weightTable[k][j];
-        if (weightTable[i + index][j] > viaK)
-            weightTable[i + index][j] = viaK;
+    for (int j = 0; j < size; ++j) {
+        for (int i = 0; i < n; ++i) {
+            double viaK = weightTable[i][k] + weightTable[k][j+index];
+            if (weightTable[i][j+index] > viaK)
+                weightTable[i][j+index] = viaK;
+        }
     }
+
 
     free(data);
     return NULL;
@@ -74,12 +75,9 @@ void allPairsShortestPath(wghEdgeArray<intT> Gr) {
         weightTable_pthreads[i] = new double[n];
         for (int j = 0 ; j < n; j++)
         {
-
             weightTable_pthreads[i][j] = weightTable[i][j];
         }
     }
-   
-    /*
 
     for (int k = 0; k < n; ++k) {
         for (int j = 0; j < n; ++j) {
@@ -91,7 +89,6 @@ void allPairsShortestPath(wghEdgeArray<intT> Gr) {
         }
     }
 
-    */
 
     int num_threads = 16;
     pthread_t * threads = (pthread_t *)malloc(sizeof(pthread_t) * num_threads);
@@ -104,35 +101,32 @@ void allPairsShortestPath(wghEdgeArray<intT> Gr) {
     _tm.start();
 
     for (int k = 0; k < n; ++k) {
-        for (int j = 0; j < n; ++j) {
-            count = 0;
-            remain = n % num_threads;
 
-            for (int i = 0; i < num_threads; ++i) {
+        count = 0;
+        remain = n % num_threads;
 
-                struct data * data = (struct data *)malloc(sizeof( struct data));
-                data->weightTable = weightTable_pthreads;
-                data->size = split;
-                data->j = j;
-                data->k = k;
+        for (int i = 0; i < num_threads; ++i) {
 
-                if(remain-- > 0)
-                    data->size++;
+            struct data * data = (struct data *)malloc(sizeof( struct data));
+            data->weightTable = weightTable_pthreads;
+            data->size = split;
+            data->k = k;
+            data->n = n;
 
-                data->index = count;
-                count += data->size;
-                pthread_create(&(threads[i]), NULL, computeWeightTable, data);
-            }
+            if(remain-- > 0)
+                data->size++;
 
-            for(int i = 0; i < num_threads; i++)
-                pthread_join(threads[i], NULL);
-
+            data->index = count;
+            count += data->size;
+            pthread_create(&(threads[i]), NULL, computeWeightTable, data);
         }
+
+        for(int i = 0; i < num_threads; i++)
+            pthread_join(threads[i], NULL);
     }
     printf("Time = %f\n", _tm.stop());
     free(threads);
 
-    /*
 
     bool break_flag = false;
     for (int i = 0; i < n && !break_flag; ++i) {
@@ -144,8 +138,7 @@ void allPairsShortestPath(wghEdgeArray<intT> Gr) {
         }
     }
 
-    */
-
+    std::cout << "testing\n";
     for (int k = 0; k < n; ++k) {
         delete[] weightTable[k];
     }
