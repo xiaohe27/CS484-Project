@@ -78,7 +78,7 @@ void allPairsShortestPath(wghEdgeArray<intT> Gr) {
             weightTable_pthreads[i][j] = weightTable[i][j];
         }
     }
-
+/*
     for (int k = 0; k < n; ++k) {
         for (int j = 0; j < n; ++j) {
             for (int i = 0; i < n; ++i) {
@@ -88,7 +88,7 @@ void allPairsShortestPath(wghEdgeArray<intT> Gr) {
             }
         }
     }
-
+*/
 
     int num_threads = 16;
     pthread_t * threads = (pthread_t *)malloc(sizeof(pthread_t) * num_threads);
@@ -127,7 +127,7 @@ void allPairsShortestPath(wghEdgeArray<intT> Gr) {
     printf("Time = %f\n", _tm.stop());
     free(threads);
 
-
+/*
     bool break_flag = false;
     for (int i = 0; i < n && !break_flag; ++i) {
         for (int j = 0; j < n && !break_flag; ++j) {
@@ -137,7 +137,7 @@ void allPairsShortestPath(wghEdgeArray<intT> Gr) {
             }
         }
     }
-
+*/
     std::cout << "testing\n";
     for (int k = 0; k < n; ++k) {
         delete[] weightTable[k];
