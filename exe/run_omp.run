@@ -9,10 +9,10 @@
 cd $PBS_O_WORKDIR
 
 echo "running omp_k" >> result.txt
-./omp_k.exe randLocalGraph_WE_5_1920
+./omp_k.exe randLocalGraph_WE_5_1920 8 >> result.txt
 
 echo "running omp_j" >> result.txt
-./omp_j.exe randLocalGraph_WE_5_1920
+./omp_j.exe randLocalGraph_WE_5_1920 8 >> result.txt
 
 echo "running omp_j" >> result.txt
-./omp_i.exe randLocalGraph_WE_5_1920
+./omp_i.exe randLocalGraph_WE_5_1920 8 >> result.txt
