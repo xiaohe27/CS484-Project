@@ -5,6 +5,8 @@
 
 using namespace std;
 
+int num_threads = 16;
+
 struct data {
  double ** weightTable;
  int size;
@@ -48,6 +50,8 @@ void allPairsShortestPath(wghEdgeArray<intT> Gr) {
     //to obtain the initial configuration.
     double **weightTable = new double *[n];
     double **weightTable_pthreads = new double *[n];
+
+    printf("Number of threads = %d\n", num_threads);
 
     for (int i = 0; i < n; ++i) {
         weightTable[i] = new double[n];
@@ -93,7 +97,6 @@ void allPairsShortestPath(wghEdgeArray<intT> Gr) {
 
     */
 
-    int num_threads = 16;
     pthread_t * threads = (pthread_t *)malloc(sizeof(pthread_t) * num_threads);
     int remain = 0;
     int split = 0;
@@ -154,9 +157,11 @@ void allPairsShortestPath(wghEdgeArray<intT> Gr) {
 }
 
 int main(int argc, char **argv) {
-    commandLine P(argc, argv, "-o <outFile>");
+    commandLine P(argc, argv, "-n <numThreads> -o <outFile>");
     char *iFile = P.getArgument(0);
     char *oFile = P.getOptionValue("-o");
+
+    num_threads = P.getOptionIntValue("-n", 16);
 
     wghEdgeArray<intT> G = benchIO::readWghEdgeArrayFromFile<intT>(iFile);
 
