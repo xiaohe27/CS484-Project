@@ -1,0 +1,18 @@
+#!/bin/bash
+
+#PBS -q cs
+#PBS -l walltime=00:15:00
+#PBS -l nodes=1:ppn=16
+#PBS -N CS484_proj
+#PBS -j oe
+
+cd $PBS_O_WORKDIR
+
+echo "running omp_k" >> result.txt
+./omp_k.exe randLocalGraph_WE_5_1920
+
+echo "running omp_j" >> result.txt
+./omp_j.exe randLocalGraph_WE_5_1920
+
+echo "running omp_j" >> result.txt
+./omp_i.exe randLocalGraph_WE_5_1920

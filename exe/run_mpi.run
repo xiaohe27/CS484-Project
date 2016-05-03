@@ -1,0 +1,51 @@
+#!/bin/bash
+
+#PBS -q cs
+#PBS -l walltime=00:20:00
+#PBS -l nodes=2:ppn=16
+#PBS -N CS484_proj
+#PBS -j oe
+
+cd $PBS_O_WORKDIR
+
+echo "running 2 pros mpi" >> result.txt
+mpirun -np 2 ./mpi.exe randLocalGraph_WE_5_1920 >> result.txt
+
+echo "running 4 pros mpi" >> result.txt
+mpirun -np 4 ./mpi.exe randLocalGraph_WE_5_1920 >> result.txt
+
+echo "running 4 pros mpi_2d" >> result.txt
+mpirun -np 4 ./mpi_2d.exe randLocalGraph_WE_5_1920 >> result.txt
+
+echo "running 4 pros mpi_2d_cannon" >> result.txt
+mpirun -np 4 ./mpi_2d_cannon.exe randLocalGraph_WE_5_1920 >> result.txt
+
+echo "running 4 pros mpi_2d_fox" >> result.txt
+mpirun -np 4 ./mpi_2d_fox.exe randLocalGraph_WE_5_1920 >> result.txt
+
+echo "running 8 pros mpi_2d" >> result.txt
+mpirun -np 8 ./mpi_2d.exe randLocalGraph_WE_5_1920 >> result.txt
+
+echo "running 16 pros mpi" >> result.txt
+mpirun -np 16 ./mpi.exe randLocalGraph_WE_5_1920 >> result.txt
+
+echo "running 16 pros mpi_2d" >> result.txt
+mpirun -np 16 ./mpi_2d.exe randLocalGraph_WE_5_1920 >> result.txt
+
+echo "running 16 pros mpi_2d_cannon" >> result.txt
+mpirun -np 16 ./mpi_2d_cannon.exe randLocalGraph_WE_5_1920 >> result.txt
+
+echo "running 16 pros mpi_2d_fox" >> result.txt
+mpirun -np 16 ./mpi_2d_fox.exe randLocalGraph_WE_5_1920 >> result.txt
+
+echo "running 25 pros mpi" >> result.txt
+mpirun -np 25 ./mpi.exe randLocalGraph_WE_5_1920 >> result.txt
+
+echo "running 25 pros mpi_2d" >> result.txt
+mpirun -np 25 ./mpi_2d.exe randLocalGraph_WE_5_1920 >> result.txt
+
+echo "running 25 pros mpi_2d_cannon" >> result.txt
+mpirun -np 25 ./mpi_2d_cannon.exe randLocalGraph_WE_5_1920 >> result.txt
+
+echo "running 25 pros mpi_2d_fox" >> result.txt
+mpirun -np 25 ./mpi_2d_fox.exe randLocalGraph_WE_5_1920 >> result.txt

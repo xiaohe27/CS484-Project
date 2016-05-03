@@ -1,0 +1,30 @@
+----------------------------------------
+Begin Torque Prologue (Tue Apr 26 13:38:33 2016)
+Job ID:           4156185.cc-mgmt1.campuscluster.illinois.edu
+Username:         kruan4
+Group:            cs-courses
+Job Name:         CS484_proj
+Limits:           neednodes=1:ppn=12,nodes=1:ppn=12,walltime=00:15:00
+Job Queue:        cs
+Account:          cs-courses
+Nodes:            golub161
+End Torque Prologue
+----------------------------------------
+----------------------------------------
+Begin Torque Epilogue (Tue Apr 26 13:38:54 2016)
+Job ID:           4156185.cc-mgmt1.campuscluster.illinois.edu
+Username:         kruan4
+Group:            cs-courses
+Job Name:         CS484_proj
+Session:          112974
+Limits:           neednodes=1:ppn=12,nodes=1:ppn=12,walltime=00:15:00
+Resources:        cput=00:01:50,energy_used=0,mem=159460kb,vmem=2987616kb,walltime=00:00:22
+Job Queue:        cs
+Account:          cs-courses
+Nodes:            golub161
+ssh: connect to host mic1 port 22: Connection refused
+lost connection
+ssh: connect to host mic1 port 22: Connection refused
+lost connection
+End Torque Epilogue
+----------------------------------------
