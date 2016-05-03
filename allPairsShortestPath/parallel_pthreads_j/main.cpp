@@ -1,9 +1,13 @@
 #include "main.h"
 #include "gettime.h"
 #include <pthread.h>
+#include <string>
+#include <cstring>
 #include "parseCommandLine.h"
 
 using namespace std;
+
+int num_threads = 16;
 
 struct data {
  double ** weightTable;
@@ -90,7 +94,9 @@ void allPairsShortestPath(wghEdgeArray<intT> Gr) {
     }
 */
 
-    int num_threads = 16;
+    
+    printf("Num_threads = %d\n", num_threads);
+
     pthread_t * threads = (pthread_t *)malloc(sizeof(pthread_t) * num_threads);
     int remain = 0;
     int split = 0;
@@ -147,11 +153,14 @@ void allPairsShortestPath(wghEdgeArray<intT> Gr) {
 }
 
 int main(int argc, char **argv) {
-    commandLine P(argc, argv, "-o <outFile>");
+    commandLine P(argc, argv, "-n <numThreads> -o <outFile>");
     char *iFile = P.getArgument(0);
     char *oFile = P.getOptionValue("-o");
 
+    num_threads = P.getOptionIntValue("-n", 16);
+
     wghEdgeArray<intT> G = benchIO::readWghEdgeArrayFromFile<intT>(iFile);
+
 
     allPairsShortestPath(G);
 }
