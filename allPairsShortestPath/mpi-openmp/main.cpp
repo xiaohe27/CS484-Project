@@ -5,6 +5,7 @@
 //#include <limits>
 #include "parseCommandLine.h"
 #include <mpi.h>
+#include<omp.h>
 
 #define BILLION 1000000000L
 #define ind(i, j) (n * i) + j
@@ -29,6 +30,8 @@ int main(int argc, char **argv) {
     MPI_Comm comm_col;
 
     MPI_Init(&argc, &argv);
+
+omp_set_num_threads(NUM_THREADS); //set the number of threads used.
 
     int rank, num_pro;
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
@@ -165,10 +168,10 @@ int main(int argc, char **argv) {
             MPI_Barrier(MPI_COMM_WORLD);
 
             // build new local
-//#pragma omp parallel for
+            #pragma omp parallel for
             for (int i = 0; i < sub_matrix_size; i++) {
                
-		 #pragma omp parallel for
+	//	#pragma omp parallel for
                 for (int j = 0; j < sub_matrix_size; j++) {
                     if (rowK[j] + colK[i] < local[i * sub_matrix_size + j])
                         local[i * sub_matrix_size + j] = rowK[j] + colK[i];

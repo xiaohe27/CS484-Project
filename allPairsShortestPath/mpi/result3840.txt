@@ -27,3 +27,16 @@ running 3840 nodes via 48 procs
 Avg parallel time is 27637.018883
 Iso efficiency is 0.000000
 error!
+running 3840 nodes via 25 procs
+
+===================================================================================
+=   BAD TERMINATION OF ONE OF YOUR APPLICATION PROCESSES
+=   PID 145353 RUNNING AT golub295
+=   EXIT CODE: 1
+=   CLEANING UP REMAINING PROCESSES
+=   YOU CAN IGNORE THE BELOW CLEANUP MESSAGES
+===================================================================================
+running 3840 nodes via 32 procs
+Avg parallel time is 22251.392011
+Iso efficiency is 0.000000
+error!

@@ -20,8 +20,8 @@ cd $PBS_O_WORKDIR
 #echo "running 3840 nodes via 9 procs" >> result3840.txt
 #mpirun -np 9 ./main.exe randLocalGraph_WE_5_3840 >> result3840.txt
 
-echo "running 3840 nodes via 16 procs" >> result3840.txt
-mpirun -np 16 ./main.exe randLocalGraph_WE_5_3840 >> result3840.txt
+#echo "running 3840 nodes via 16 procs" >> result3840.txt
+#mpirun -np 16 ./main.exe randLocalGraph_WE_5_3840 >> result3840.txt
 
 echo "running 3840 nodes via 25 procs" >> result3840.txt
 mpirun -np 25 ./main.exe randLocalGraph_WE_5_3840 >> result3840.txt
@@ -32,6 +32,6 @@ mpirun -np 32 ./main.exe randLocalGraph_WE_5_3840 >> result3840.txt
 #echo "running 3840 nodes via 36 procs" >> result3840.txt
 #mpirun -np 36 ./main.exe randLocalGraph_WE_5_3840 >> result3840.txt
 
-echo "running 3840 nodes via 48 procs" >> result3840.txt
-mpirun -np 48 ./main.exe randLocalGraph_WE_5_3840 >> result3840.txt
+#echo "running 3840 nodes via 48 procs" >> result3840.txt
+#mpirun -np 48 ./main.exe randLocalGraph_WE_5_3840 >> result3840.txt
 
