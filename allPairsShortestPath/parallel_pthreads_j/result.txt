@@ -1,0 +1,36 @@
+number of nodes is 960, and number of edges is 4800.
+Num_threads = 2
+Time = 4.890206
+testing
+number of nodes is 960, and number of edges is 4800.
+Num_threads = 4
+Time = 2.754089
+testing
+number of nodes is 960, and number of edges is 4800.
+Num_threads = 8
+Time = 1.642990
+testing
+number of nodes is 960, and number of edges is 4800.
+Num_threads = 9
+Time = 1.514337
+testing
+number of nodes is 960, and number of edges is 4800.
+Num_threads = 16
+Time = 0.958158
+testing
+number of nodes is 960, and number of edges is 4800.
+Num_threads = 25
+Time = 0.909727
+testing
+number of nodes is 960, and number of edges is 4800.
+Num_threads = 32
+Time = 1.021595
+testing
+number of nodes is 960, and number of edges is 4800.
+Num_threads = 36
+Time = 0.984713
+testing
+number of nodes is 960, and number of edges is 4800.
+Num_threads = 48
+Time = 0.970251
+testing

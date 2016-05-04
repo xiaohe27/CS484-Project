@@ -14,7 +14,7 @@ CCFLAGS= -D ENABLE_DEBUG -std=c++11 -g
 all: clean main.exe
 
 main.exe:
-	$(CC) -DITERS=1 $(CCFLAGS) main.cpp -o main.exe
+	$(CC) -DITERS=1 -DNUM_THREADS=4 $(CCFLAGS) main.cpp -o main.exe
 
 clean:
 	rm -f *.exe $(TARGETS)
@@ -22,7 +22,7 @@ clean:
 seq: clean seq.exe
 
 seq.exe:
-	icc $(CCFLAGS) -DNUM_THREADS=16 sequential.cpp -o seq.exe
+	$(CC) -DITERS=5 $(CCFLAGS) sequential.cpp -o seq.exe
 
 
 seqMPI: clean seqMPI.exe

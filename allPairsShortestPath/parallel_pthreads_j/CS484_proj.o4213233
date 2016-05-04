@@ -1,0 +1,31 @@
+----------------------------------------
+Begin Torque Prologue (Tue May  3 15:21:19 2016)
+Job ID:           4213233.cc-mgmt1.campuscluster.illinois.edu
+Username:         hexiao2
+Group:            cs-courses
+Job Name:         CS484_proj
+Limits:           neednodes=1:ppn=24,nodes=1:ppn=24,walltime=00:28:00
+Job Queue:        cs
+Account:          cs-courses
+Nodes:            golub291
+End Torque Prologue
+----------------------------------------
+=>> PBS: job killed: walltime 1706 exceeded limit 1680
+----------------------------------------
+Begin Torque Epilogue (Tue May  3 15:49:45 2016)
+Job ID:           4213233.cc-mgmt1.campuscluster.illinois.edu
+Username:         hexiao2
+Group:            cs-courses
+Job Name:         CS484_proj
+Session:          60406
+Limits:           neednodes=1:ppn=24,nodes=1:ppn=24,walltime=00:28:00
+Resources:        cput=02:18:43,energy_used=0,mem=236412kb,vmem=535056kb,walltime=00:28:26
+Job Queue:        cs
+Account:          cs-courses
+Nodes:            golub291
+ssh: connect to host mic1 port 22: Connection refused
+lost connection
+ssh: connect to host mic1 port 22: Connection refused
+lost connection
+End Torque Epilogue
+----------------------------------------

@@ -1,0 +1,13 @@
+#!/bin/bash
+
+#PBS -q cs
+#PBS -l walltime=00:15:00
+#PBS -l nodes=5:ppn=12
+#PBS -N CS484_proj
+#PBS -j oe
+
+cd $PBS_O_WORKDIR
+
+echo "input size: 10000 nodes" >> result.txt
+mpirun -np 60 ./main.exe randLocalGraph_WE_5_10000 >> result.txt
+

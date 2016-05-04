@@ -1,0 +1,2 @@
+running 1920 nodes
+Avg parallel time is 2107.983363

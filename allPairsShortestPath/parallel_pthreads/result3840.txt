@@ -1,0 +1,1 @@
+number of nodes is 3840, and number of edges is 19200.

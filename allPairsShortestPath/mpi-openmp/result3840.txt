@@ -1,0 +1,10 @@
+running 3840 nodes via 4 procs
+Avg parallel time is 40750.737288
+running 3840 nodes via 9 procs
+Avg parallel time is 20627.098558
+running 3840 nodes via 16 procs
+Avg parallel time is 12554.270126
+running 3840 nodes via 25 procs
+Avg parallel time is 72957.958032
+running 3840 nodes via 36 procs
+Avg parallel time is 41764.620707

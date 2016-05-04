@@ -1,0 +1,34 @@
+#!/bin/bash
+
+#PBS -q cs
+#PBS -l walltime=00:15:00
+#PBS -l nodes=1:ppn=24
+#PBS -N CS484_proj
+#PBS -j oe
+
+cd $PBS_O_WORKDIR
+
+./main.exe -n 2 randLocalGraph_WE_5_3840 > result3840.txt
+
+echo "running 3840 nodes via 4 procs" >> result3840.txt
+./main.exe -n 4 randLocalGraph_WE_5_3840 >> result3840.txt
+
+echo "running 3840 nodes via 8 procs" >> result3840.txt
+./main.exe -n 8 randLocalGraph_WE_5_3840 >> result3840.txt
+
+./main.exe -n 9 randLocalGraph_WE_5_3840 >> result3840.txt
+
+echo "running 3840 nodes via 16 procs" >> result3840.txt
+./main.exe -n 16 randLocalGraph_WE_5_3840 >> result3840.txt
+
+echo "running 3840 nodes via 25 procs" >> result3840.txt
+./main.exe -n 25 randLocalGraph_WE_5_3840 >> result3840.txt
+
+#echo "running 1920 nodes via 32 procs" >> result.txt
+#./main.exe -n 32 randLocalGraph_WE_5_960 >> result.txt
+
+
+./main.exe -n 36 randLocalGraph_WE_5_960 >> result.txt
+
+./main.exe -n 48 randLocalGraph_WE_5_960 >> result.txt
+

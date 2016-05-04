@@ -1,0 +1,40 @@
+----------------------------------------
+Begin Torque Prologue (Mon May  2 22:59:31 2016)
+Job ID:           4209136.cc-mgmt1.campuscluster.illinois.edu
+Username:         hexiao2
+Group:            cs-courses
+Job Name:         CS484_proj
+Limits:           neednodes=2:ppn=24,nodes=2:ppn=24,walltime=00:25:00
+Job Queue:        cs
+Account:          cs-courses
+Nodes:            golub293 golub295
+End Torque Prologue
+----------------------------------------
+[proxy:0:1@golub295] HYD_pmcd_pmip_control_cmd_cb (pm/pmiserv/pmip_cb.c:885): assert (!closed) failed
+[proxy:0:1@golub295] HYDT_dmxu_poll_wait_for_event (tools/demux/demux_poll.c:76): callback returned error status
+[proxy:0:1@golub295] main (pm/pmiserv/pmip.c:206): demux engine error waiting for event
+[mpiexec@golub293] HYDT_bscu_wait_for_completion (tools/bootstrap/utils/bscu_wait.c:76): one of the processes terminated badly; aborting
+[mpiexec@golub293] HYDT_bsci_wait_for_completion (tools/bootstrap/src/bsci_wait.c:23): launcher returned error waiting for completion
+[mpiexec@golub293] HYD_pmci_wait_for_completion (pm/pmiserv/pmiserv_pmci.c:218): launcher returned error waiting for completion
+[mpiexec@golub293] main (ui/mpich/mpiexec.c:344): process manager error waiting for completion
+[proxy:0:1@golub295] HYD_pmcd_pmip_control_cmd_cb (pm/pmiserv/pmip_cb.c:885): assert (!closed) failed
+[proxy:0:1@golub295] HYDT_dmxu_poll_wait_for_event (tools/demux/demux_poll.c:76): callback returned error status
+[proxy:0:1@golub295] main (pm/pmiserv/pmip.c:206): demux engine error waiting for event
+[mpiexec@golub293] HYDT_bscu_wait_for_completion (tools/bootstrap/utils/bscu_wait.c:76): one of the processes terminated badly; aborting
+[mpiexec@golub293] HYDT_bsci_wait_for_completion (tools/bootstrap/src/bsci_wait.c:23): launcher returned error waiting for completion
+[mpiexec@golub293] HYD_pmci_wait_for_completion (pm/pmiserv/pmiserv_pmci.c:218): launcher returned error waiting for completion
+[mpiexec@golub293] main (ui/mpich/mpiexec.c:344): process manager error waiting for completion
+----------------------------------------
+Begin Torque Epilogue (Mon May  2 22:59:33 2016)
+Job ID:           4209136.cc-mgmt1.campuscluster.illinois.edu
+Username:         hexiao2
+Group:            cs-courses
+Job Name:         CS484_proj
+Session:          80890
+Limits:           neednodes=2:ppn=24,nodes=2:ppn=24,walltime=00:25:00
+Resources:        cput=00:00:00,energy_used=0,mem=0kb,vmem=0kb,walltime=00:00:02
+Job Queue:        cs
+Account:          cs-courses
+Nodes:            golub293 golub295
+End Torque Epilogue
+----------------------------------------

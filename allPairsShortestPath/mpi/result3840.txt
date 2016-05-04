@@ -1,0 +1,29 @@
+running 3840 nodes via 2 procs
+Time taken for sequential version = 574624.349094 milliseconds
+Avg parallel time is 89855.343617
+Iso efficiency is 3.197497
+running 3840 nodes via 4 procs
+Time taken for sequential version = 568730.245457 milliseconds
+Avg parallel time is 45874.968927
+Iso efficiency is 3.099349
+running 3840 nodes via 8 procs
+running 3840 nodes via 8 procs
+Time taken for sequential version = 571996.081092 milliseconds
+Avg parallel time is 25139.788352
+Iso efficiency is 2.844078
+running 3840 nodes via 16 procs
+Avg parallel time is 13103.699736
+Iso efficiency is 0.000000
+error!
+running 3840 nodes via 25 procs
+Avg parallel time is 35402.946429
+Iso efficiency is 0.000000
+error!
+running 3840 nodes via 32 procs
+Avg parallel time is 10398.428707
+Iso efficiency is 0.000000
+error!
+running 3840 nodes via 48 procs
+Avg parallel time is 27637.018883
+Iso efficiency is 0.000000
+error!

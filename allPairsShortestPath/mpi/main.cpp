@@ -89,8 +89,10 @@ int main(int argc, char **argv) {
     struct timespec start_ser, end_ser;
 
 
+/*
     // sequential version
     clock_gettime(CLOCK_MONOTONIC, &start_ser);
+
 
     if (rank == 0) {
         for (int k = 0; k < n; ++k) {
@@ -115,6 +117,7 @@ int main(int argc, char **argv) {
         printf("Time taken for sequential version = %f milliseconds\n", (double) diff);
     }
 
+*/
 
     for (int x = 0; x < ITERS; ++x) {
 

@@ -8,17 +8,17 @@
 
 cd $PBS_O_WORKDIR
 
-echo "running 1920 nodes via 2 procs" > result1920.txt
-mpirun -np 2 ./main.exe randLocalGraph_WE_5_1920 >> result1920.txt
+#echo "running 960 nodes via 2 procs" > result.txt
+#mpirun -np 2 ./main.exe randLocalGraph_WE_5_960 >> result.txt
 
-echo "running 1920 nodes via 4 procs" >> result1920.txt
-mpirun -np 4 ./main.exe randLocalGraph_WE_5_1920 >> result1920.txt
+#echo "running 960 nodes via 4 procs" >> result.txt
+#mpirun -np 4 ./main.exe randLocalGraph_WE_5_960 >> result.txt
 
-echo "running 1920 nodes via 8 procs" >> result1920.txt
-mpirun -np 8 ./main.exe randLocalGraph_WE_5_1920 >> result1920.txt
+echo "running 1920 nodes via 9 procs" >> result1920.txt
+mpirun -np 9 ./main.exe randLocalGraph_WE_5_1920 >> result1920.txt
 
-echo "running 1920 nodes via 16 procs" >> result1920.txt
-mpirun -np 16 ./main.exe randLocalGraph_WE_5_1920 >> result1920.txt
+#echo "running 960 nodes via 16 procs" >> result.txt
+#mpirun -np 16 ./main.exe randLocalGraph_WE_5_960 >> result.txt
 
 echo "running 1920 nodes via 25 procs" >> result1920.txt
 mpirun -np 25 ./main.exe randLocalGraph_WE_5_1920 >> result1920.txt
@@ -26,6 +26,6 @@ mpirun -np 25 ./main.exe randLocalGraph_WE_5_1920 >> result1920.txt
 echo "running 1920 nodes via 36 procs" >> result1920.txt
 mpirun -np 36 ./main.exe randLocalGraph_WE_5_1920 >> result1920.txt
 
-echo "running 1920 nodes via 48 procs" >> result1920.txt
-mpirun -np 48 ./main.exe randLocalGraph_WE_5_1920 >> result1920.txt
+#echo "running 1920 nodes via 48 procs" >> result1920.txt
+#mpirun -np 49 ./main.exe randLocalGraph_WE_5_1920 >> result1920.txt
 

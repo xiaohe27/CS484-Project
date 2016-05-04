@@ -1,0 +1,5 @@
+running 1920 nodes
+running 1920 nodes
+Time = 881.752830
+Time = 889.407377
+running 3840 nodes

@@ -1,0 +1,2 @@
+running 1920 nodes
+Time taken for sequential version = 57357.730375 milliseconds

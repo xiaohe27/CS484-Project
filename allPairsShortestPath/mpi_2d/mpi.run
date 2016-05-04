@@ -1,0 +1,13 @@
+#!/bin/bash
+
+#PBS -q cs
+#PBS -l walltime=00:25:00
+#PBS -l nodes=2:ppn=12
+#PBS -N CS484_proj
+#PBS -j oe
+
+cd $PBS_O_WORKDIR
+
+echo "running 1920 nodes" > mpi-result.txt
+mpirun -np 16 ./main.exe randLocalGraph_WE_5_1920 >> mpi-result.txt
+

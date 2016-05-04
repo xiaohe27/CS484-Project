@@ -1,0 +1,41 @@
+number of nodes is 3840, and number of edges is 19200.
+Num_threads = 2
+Time = 700.365898
+testing
+running 3840 nodes via 4 procs
+number of nodes is 3840, and number of edges is 19200.
+Num_threads = 4
+Time = 418.847651
+testing
+running 3840 nodes via 8 procs
+number of nodes is 3840, and number of edges is 19200.
+Num_threads = 8
+Time = 218.267197
+testing
+number of nodes is 3840, and number of edges is 19200.
+Num_threads = 9
+Time = 196.740542
+testing
+running 3840 nodes via 16 procs
+number of nodes is 3840, and number of edges is 19200.
+Num_threads = 16
+Time = 113.561161
+testing
+running 3840 nodes via 25 procs
+number of nodes is 3840, and number of edges is 19200.
+number of nodes is 3840, and number of edges is 19200.
+Num_threads = 25
+Time = 92.903367
+testing
+number of nodes is 3840, and number of edges is 19200.
+Num_threads = 32
+Time = 95.647144
+testing
+number of nodes is 3840, and number of edges is 19200.
+Num_threads = 36
+Time = 85.706478
+testing
+number of nodes is 3840, and number of edges is 19200.
+Num_threads = 48
+Time = 84.060030
+testing

@@ -1,6 +1,6 @@
 ----------------------------------------
-Begin Torque Prologue (Sun May  1 16:33:30 2016)
-Job ID:           4194799.cc-mgmt1.campuscluster.illinois.edu
+Begin Torque Prologue (Sun May  1 15:50:32 2016)
+Job ID:           4194770.cc-mgmt1.campuscluster.illinois.edu
 Username:         hexiao2
 Group:            cs-courses
 Job Name:         CS484_proj
@@ -11,14 +11,14 @@ Nodes:            golub297 golub298
 End Torque Prologue
 ----------------------------------------
 ----------------------------------------
-Begin Torque Epilogue (Sun May  1 16:44:31 2016)
-Job ID:           4194799.cc-mgmt1.campuscluster.illinois.edu
+Begin Torque Epilogue (Sun May  1 15:50:43 2016)
+Job ID:           4194770.cc-mgmt1.campuscluster.illinois.edu
 Username:         hexiao2
 Group:            cs-courses
 Job Name:         CS484_proj
-Session:          112044
+Session:          111098
 Limits:           neednodes=2:ppn=12,nodes=2:ppn=12,walltime=00:25:00
-Resources:        cput=02:05:19,energy_used=0,mem=281780kb,vmem=1492804kb,walltime=00:11:00
+Resources:        cput=00:00:00,energy_used=0,mem=0kb,vmem=0kb,walltime=00:00:10
 Job Queue:        cs
 Account:          cs-courses
 Nodes:            golub297 golub298

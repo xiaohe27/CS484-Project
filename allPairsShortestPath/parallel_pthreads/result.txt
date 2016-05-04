@@ -1,0 +1,27 @@
+number of nodes is 960, and number of edges is 4800.
+Number of threads = 2
+Time = 18.914538
+number of nodes is 960, and number of edges is 4800.
+Number of threads = 4
+Time = 43.207460
+number of nodes is 960, and number of edges is 4800.
+Number of threads = 8
+Time = 104.298539
+number of nodes is 960, and number of edges is 4800.
+Number of threads = 9
+Time = 120.829803
+number of nodes is 960, and number of edges is 4800.
+Number of threads = 16
+Time = 239.291845
+number of nodes is 960, and number of edges is 4800.
+Number of threads = 25
+Time = 454.804139
+number of nodes is 960, and number of edges is 4800.
+Number of threads = 32
+Time = 614.132752
+number of nodes is 960, and number of edges is 4800.
+Number of threads = 36
+Time = 693.854740
+number of nodes is 960, and number of edges is 4800.
+Number of threads = 48
+Time = 943.078918

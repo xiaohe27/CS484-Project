@@ -1,0 +1,12 @@
+running 120 nodes
+Avg parallel time is 15.114381
+running 240 nodes
+Avg parallel time is 19.558690
+running 480 nodes
+Avg parallel time is 43.225708
+running 960 nodes
+Avg parallel time is 231.550774
+running 1920 nodes
+Avg parallel time is 1752.079994
+running 3840 nodes
+Avg parallel time is 12013.053010

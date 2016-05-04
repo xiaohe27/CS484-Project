@@ -165,9 +165,10 @@ int main(int argc, char **argv) {
             MPI_Barrier(MPI_COMM_WORLD);
 
             // build new local
-#pragma omp parallel for
+//#pragma omp parallel for
             for (int i = 0; i < sub_matrix_size; i++) {
-                //    #pragma omp parallel for
+               
+		 #pragma omp parallel for
                 for (int j = 0; j < sub_matrix_size; j++) {
                     if (rowK[j] + colK[i] < local[i * sub_matrix_size + j])
                         local[i * sub_matrix_size + j] = rowK[j] + colK[i];

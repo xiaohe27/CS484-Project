@@ -1,0 +1,16 @@
+#!/bin/bash
+
+#PBS -q cs
+#PBS -l walltime=00:25:00
+#PBS -l nodes=1:ppn=24
+#PBS -N CS484_proj
+#PBS -j oe
+
+cd $PBS_O_WORKDIR
+
+#echo "running 1920 nodes" >> result2.txt
+#./main.exe randLocalGraph_WE_5_1920 >> result2.txt
+
+echo "running 3840 nodes" >> result2.txt
+./main.exe randLocalGraph_WE_5_3840 >> result2.txt
+

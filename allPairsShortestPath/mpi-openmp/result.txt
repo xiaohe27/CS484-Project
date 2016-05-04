@@ -1,0 +1,12 @@
+running 960 nodes via 4 procs
+Avg parallel time is 676.923028
+running 960 nodes via 9 procs
+Avg parallel time is 352.554140
+running 960 nodes via 16 procs
+Avg parallel time is 315.751766
+running 960 nodes via 25 procs
+Avg parallel time is 15552.388819
+running 960 nodes via 36 procs
+Avg parallel time is 634.271513
+running 960 nodes via 25 procs
+Avg parallel time is 441.001178

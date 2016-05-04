@@ -1,10 +1,48 @@
-running 100 nodes
-APPLICATION TERMINATED WITH THE EXIT STRING: Aborted (signal 6)
-running 1000 nodes
-APPLICATION TERMINATED WITH THE EXIT STRING: Aborted (signal 6)
-running 100 nodes
-Time taken for sequential version = 5.412650 milliseconds
-APPLICATION TERMINATED WITH THE EXIT STRING: Aborted (signal 6)
-running 1000 nodes
-Time taken for sequential version = 24318.395491 milliseconds
-APPLICATION TERMINATED WITH THE EXIT STRING: Segmentation fault (signal 11)
+running 960 nodes
+Time taken for sequential version = 6336.796206 milliseconds
+Avg parallel time is 1411.019478
+Iso efficiency is 2.245467
+running 960 nodes
+Time taken for sequential version = 6515.155761 milliseconds
+Avg parallel time is 723.338680
+Iso efficiency is 2.251765
+running 960 nodes
+Time taken for sequential version = 6885.375404 milliseconds
+Avg parallel time is 407.183863
+Iso efficiency is 2.113718
+running 960 nodes
+Time taken for sequential version = 6960.072888 milliseconds
+Avg parallel time is 225.230184
+Iso efficiency is 1.931378
+running 960 nodes
+Time taken for sequential version = 7107.812781 milliseconds
+Avg parallel time is 696.908657
+Iso efficiency is 0.407962
+error!
+running 960 nodes
+Time taken for sequential version = 8099.481418 milliseconds
+
+===================================================================================
+=   BAD TERMINATION OF ONE OF YOUR APPLICATION PROCESSES
+=   PID 123671 RUNNING AT golub295
+=   EXIT CODE: 11
+=   CLEANING UP REMAINING PROCESSES
+=   YOU CAN IGNORE THE BELOW CLEANUP MESSAGES
+===================================================================================
+running 960 nodes
+Time taken for sequential version = 6856.617197 milliseconds
+Avg parallel time is 1271.383529
+Iso efficiency is 0.112355
+running 960 nodes via 32 procs
+Time taken for sequential version = 7000.057175 milliseconds
+Avg parallel time is 401.956508
+Iso efficiency is 0.544218
+running 960 nodes via 25 procs
+Time taken for sequential version = 6990.546882 milliseconds
+Avg parallel time is 337.208460
+Iso efficiency is 0.829226
+error!
+running 960 nodes via 32 procs
+Time taken for sequential version = 6970.922275 milliseconds
+Avg parallel time is 158.178676
+Iso efficiency is 1.377185

@@ -1,0 +1,6 @@
+running 1920 nodes via 9 procs
+Avg parallel time is 2613.010915
+running 1920 nodes via 25 procs
+Avg parallel time is 1362.463548
+running 1920 nodes via 36 procs
+Avg parallel time is 10041.366525

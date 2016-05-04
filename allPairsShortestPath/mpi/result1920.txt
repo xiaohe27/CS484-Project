@@ -1,0 +1,18 @@
+running 1920 nodes via 36 procs
+Time taken for sequential version = 69572.990787 milliseconds
+
+===================================================================================
+=   BAD TERMINATION OF ONE OF YOUR APPLICATION PROCESSES
+=   PID 126173 RUNNING AT golub295
+=   EXIT CODE: 1
+=   CLEANING UP REMAINING PROCESSES
+=   YOU CAN IGNORE THE BELOW CLEANUP MESSAGES
+===================================================================================
+running 1920 nodes via 48 procs
+Time taken for sequential version = 67282.406637 milliseconds
+Avg parallel time is 11394.595822
+Iso efficiency is 0.123016
+running 1920 nodes via 32 procs
+Time taken for sequential version = 60258.047806 milliseconds
+Avg parallel time is 4993.859401
+Iso efficiency is 0.377076

@@ -1,0 +1,5 @@
+running 3840 nodes
+Time taken for sequential version = 573376.848503 milliseconds
+Avg parallel time is 13434.365990
+Iso efficiency is 2.667491
+error!

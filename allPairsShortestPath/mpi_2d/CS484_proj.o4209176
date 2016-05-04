@@ -1,27 +1,27 @@
 ----------------------------------------
-Begin Torque Prologue (Sun May  1 16:25:27 2016)
-Job ID:           4194780.cc-mgmt1.campuscluster.illinois.edu
+Begin Torque Prologue (Mon May  2 23:43:21 2016)
+Job ID:           4209176.cc-mgmt1.campuscluster.illinois.edu
 Username:         hexiao2
 Group:            cs-courses
 Job Name:         CS484_proj
-Limits:           neednodes=2:ppn=12,nodes=2:ppn=12,walltime=00:25:00
+Limits:           neednodes=2:ppn=24,nodes=2:ppn=24,walltime=00:25:00
 Job Queue:        cs
 Account:          cs-courses
-Nodes:            golub297 golub298
+Nodes:            golub291 golub293
 End Torque Prologue
 ----------------------------------------
 ----------------------------------------
-Begin Torque Epilogue (Sun May  1 16:25:37 2016)
-Job ID:           4194780.cc-mgmt1.campuscluster.illinois.edu
+Begin Torque Epilogue (Mon May  2 23:43:31 2016)
+Job ID:           4209176.cc-mgmt1.campuscluster.illinois.edu
 Username:         hexiao2
 Group:            cs-courses
 Job Name:         CS484_proj
-Session:          111835
-Limits:           neednodes=2:ppn=12,nodes=2:ppn=12,walltime=00:25:00
-Resources:        cput=00:00:00,energy_used=0,mem=0kb,vmem=0kb,walltime=00:00:10
+Session:          18793
+Limits:           neednodes=2:ppn=24,nodes=2:ppn=24,walltime=00:25:00
+Resources:        cput=00:00:00,energy_used=0,mem=0kb,vmem=0kb,walltime=00:00:09
 Job Queue:        cs
 Account:          cs-courses
-Nodes:            golub297 golub298
+Nodes:            golub291 golub293
 ssh: connect to host mic1 port 22: Connection refused
 lost connection
 ssh: connect to host mic1 port 22: Connection refused
