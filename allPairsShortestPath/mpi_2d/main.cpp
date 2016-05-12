@@ -100,7 +100,6 @@ int main(int argc, char **argv) {
 
     MPI_Bcast(&n, 1, MPI_INT, 0, MPI_COMM_WORLD);
 
-
     sub_matrix_size = n / (int)sqrt(num_pro);
 
     local = new double[sub_matrix_size * sub_matrix_size];

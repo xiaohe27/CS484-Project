@@ -201,7 +201,6 @@ int main(int argc, char **argv) {
 
 
             MPI_Sendrecv_replace(col_m, sub_matrix_size * sub_matrix_size, MPI_DOUBLE, dst_col, 0, src_col, 0, comm_col, MPI_STATUS_IGNORE);
-
         }
 
         MPI_Barrier(MPI_COMM_WORLD);
