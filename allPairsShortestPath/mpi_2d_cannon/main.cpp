@@ -52,8 +52,6 @@ int main(int argc, char **argv) {
         weightTable = new double [n*n];
         weightTable_mpi = new double [n*n];
         for (int i = 0; i < n; ++i) {
-            // weightTable[i] = new double[n];
-            // weightTable_mpi[i] = new double[n];
             for (int j = 0; j < n; ++j){
                 weightTable[ind(i,j)] = numeric_limits<double>::max();
                 weightTable_mpi[ind(i,j)] = numeric_limits<double>::max();
@@ -65,29 +63,12 @@ int main(int argc, char **argv) {
             int v = curEdge.v;
             double weight = curEdge.weight;
 
-            // cout << "edge " << i << " connects node " << u << " and node " << v
-            // << ", with weight " << weight << endl;
-
             if (weightTable[ind(u,v)] > weight){
                 weightTable[ind(u,v)] = weight;
                 weightTable_mpi[ind(u,v)] = weight;
             }
         }
     }
-
-    // if (rank == 0) {
-    //     printf("original table \n", rank);
-    //     for(int i = 0; i < n; i++){
-    //         printf("row %d: ", i);
-    //         for(int j = 0; j < n; j++)
-    //             if(weightTable_mpi[ind(i,j)] > 10)
-    //                 printf(" 0.00");
-    //             else
-    //                 printf(" %1.2f",weightTable_mpi[ind(i,j)]);
-    //         printf("\n");
-    //     }
-    //     printf("\n");
-    // }
 
     struct timespec start_ser, end_ser;
 
@@ -107,20 +88,6 @@ int main(int argc, char **argv) {
         }
     }
 
-    // if (rank == 0) {
-    //     printf("original table \n", rank);
-    //     for(int i = 0; i < n; i++){
-    //         printf("row %d: ", i);
-    //         for(int j = 0; j < n; j++)
-    //             if(weightTable[ind(i,j)] > 10)
-    //                 printf(" 0.00");
-    //             else
-    //                 printf(" %1.2f",weightTable[ind(i,j)]);
-    //         printf("\n");
-    //     }
-    //     printf("\n");
-    // }
-
     clock_gettime(CLOCK_MONOTONIC,&end_ser);
 
     diff = (double)((double)BILLION*(end_ser.tv_sec-start_ser.tv_sec)+end_ser.tv_nsec-start_ser.tv_nsec)/1000000;
@@ -134,8 +101,6 @@ int main(int argc, char **argv) {
 
     MPI_Bcast(&n, 1, MPI_INT, 0, MPI_COMM_WORLD);
     
-    // printf("here rank %d has n %d\n", rank, n);
-
     int sqrt_q = (int)sqrt(num_pro);
 
     sub_matrix_size = n / sqrt_q;
@@ -199,23 +164,7 @@ int main(int argc, char **argv) {
     memcpy(row_m, local, sub_matrix_size * sub_matrix_size * sizeof(double));
     memcpy(col_m, local, sub_matrix_size * sub_matrix_size * sizeof(double));
     memcpy(res_m, local, sub_matrix_size * sub_matrix_size * sizeof(double));
-
-
-    // initial shift
-    // row shift
-    // if(sub_matrix_X != 0){
-    //     int src_row = (sub_matrix_Y + sub_matrix_X) % sqrt_q;
-    //     int dst_row = (sub_matrix_Y - sub_matrix_X + sqrt_q) % sqrt_q;
-    //     MPI_Sendrecv_replace(row_m, sub_matrix_size * sub_matrix_size, MPI_DOUBLE, dst_row, 0, src_row, 0, comm_row, MPI_STATUS_IGNORE);
-    // }
-    // // col shift
-    // if(sub_matrix_Y != 0){
-    //     int src_col = (sub_matrix_X + sub_matrix_Y) % sqrt_q;
-    //     int dst_col = (sub_matrix_X - sub_matrix_Y + sqrt_q) % sqrt_q;
-    //     MPI_Sendrecv_replace(col_m, sub_matrix_size * sub_matrix_size, MPI_DOUBLE, dst_col, 0, src_col, 0, comm_col, MPI_STATUS_IGNORE);
-    // }
     
-
 
     int src_row = (sub_matrix_Y + 1) % sqrt_q;
     int dst_row = (sub_matrix_Y + sqrt_q - 1) % sqrt_q;
@@ -224,23 +173,23 @@ int main(int argc, char **argv) {
     int dst_col = (sub_matrix_X + sqrt_q - 1) % sqrt_q;
 
     for(int d = 1; d < n; d <<= 1){
-    // for(int d = 0; d < 3; d++){
         memcpy(row_m, local, sub_matrix_size * sub_matrix_size * sizeof(double));
         memcpy(col_m, local, sub_matrix_size * sub_matrix_size * sizeof(double));
 
+    
         // initial shift
-    // row shift
-    if(sub_matrix_X != 0){
-        int src_row_tmp = (sub_matrix_Y + sub_matrix_X) % sqrt_q;
-        int dst_row_tmp = (sub_matrix_Y - sub_matrix_X + sqrt_q) % sqrt_q;
-        MPI_Sendrecv_replace(row_m, sub_matrix_size * sub_matrix_size, MPI_DOUBLE, dst_row_tmp, 0, src_row_tmp, 0, comm_row, MPI_STATUS_IGNORE);
-    }
-    // col shift
-    if(sub_matrix_Y != 0){
-        int src_col_tmp = (sub_matrix_X + sub_matrix_Y) % sqrt_q;
-        int dst_col_tmp = (sub_matrix_X - sub_matrix_Y + sqrt_q) % sqrt_q;
-        MPI_Sendrecv_replace(col_m, sub_matrix_size * sub_matrix_size, MPI_DOUBLE, dst_col_tmp, 0, src_col_tmp, 0, comm_col, MPI_STATUS_IGNORE);
-    }
+        // row shift
+        if(sub_matrix_X != 0){
+            int src_row_tmp = (sub_matrix_Y + sub_matrix_X) % sqrt_q;
+            int dst_row_tmp = (sub_matrix_Y - sub_matrix_X + sqrt_q) % sqrt_q;
+            MPI_Sendrecv_replace(row_m, sub_matrix_size * sub_matrix_size, MPI_DOUBLE, dst_row_tmp, 0, src_row_tmp, 0, comm_row, MPI_STATUS_IGNORE);
+        }
+        // col shift
+        if(sub_matrix_Y != 0){
+            int src_col_tmp = (sub_matrix_X + sub_matrix_Y) % sqrt_q;
+            int dst_col_tmp = (sub_matrix_X - sub_matrix_Y + sqrt_q) % sqrt_q;
+            MPI_Sendrecv_replace(col_m, sub_matrix_size * sub_matrix_size, MPI_DOUBLE, dst_col_tmp, 0, src_col_tmp, 0, comm_col, MPI_STATUS_IGNORE);
+        }
         
         for(int step = 0; step < sqrt_q; step++){
 
@@ -254,68 +203,17 @@ int main(int argc, char **argv) {
                 }
             }
 
-        MPI_Barrier(MPI_COMM_WORLD);
+            MPI_Sendrecv_replace(row_m, sub_matrix_size * sub_matrix_size, MPI_DOUBLE, dst_row, 0, src_row, 0, comm_row, MPI_STATUS_IGNORE);
 
+            MPI_Sendrecv_replace(col_m, sub_matrix_size * sub_matrix_size, MPI_DOUBLE, dst_col, 0, src_col, 0, comm_col, MPI_STATUS_IGNORE);
 
-        MPI_Sendrecv_replace(row_m, sub_matrix_size * sub_matrix_size, MPI_DOUBLE, dst_row, 0, src_row, 0, comm_row, MPI_STATUS_IGNORE);
-
-        MPI_Sendrecv_replace(col_m, sub_matrix_size * sub_matrix_size, MPI_DOUBLE, dst_col, 0, src_col, 0, comm_col, MPI_STATUS_IGNORE);
-
-        //     int bcast = (sub_matrix_X + step) % sqrt_q;
-        //     if(sub_matrix_Y == bcast){
-        //         memcpy(row_m, local, sub_matrix_size * sub_matrix_size * sizeof(double));
-        //         MPI_Bcast(local, sub_matrix_size * sub_matrix_size, MPI_DOUBLE, bcast, comm_row);
-        //     }
-        //     else{
-        //         // int sour = sub_matrix_X * sqrt_q + bcast;
-        //         MPI_Bcast(row_m, sub_matrix_size * sub_matrix_size, MPI_DOUBLE, bcast, comm_row);
-        //     }
-        // MPI_Barrier(MPI_COMM_WORLD);
-
-            
-
-    //         for(int r = 0; r < num_pro; r++) {
-    //     MPI_Barrier(MPI_COMM_WORLD);
-    //     if (r == rank) {
-    //         printf("rank: %d\n", rank);
-    //         for(int i = 0; i < sub_matrix_size; i++){
-    //             printf("row %d: ", i);
-    //             for(int j = 0; j < sub_matrix_size; j++)
-    //                 if(res_m[i*sub_matrix_size + j] > 10)
-    //                     printf(" 0.00");
-    //                 else
-    //                     printf(" %1.2f",res_m[i*sub_matrix_size + j]);
-    //             printf("\n");
-    //         }
-    //     }
-    // }
-
-            // MPI_Sendrecv_replace(col_m, sub_matrix_size * sub_matrix_size, MPI_DOUBLE, dst_col, 0, src_col, 0, comm_col, MPI_STATUS_IGNORE);
-        MPI_Barrier(MPI_COMM_WORLD);
+            MPI_Barrier(MPI_COMM_WORLD);
         
         }
 
         MPI_Barrier(MPI_COMM_WORLD);
         memcpy(local, res_m, sub_matrix_size * sub_matrix_size * sizeof(double));
     }
-
-    // printf("here\n");
-
-    // for(int r = 0; r < num_pro; r++) {
-    //     MPI_Barrier(MPI_COMM_WORLD);
-    //     if (r == rank) {
-    //         printf("rank: %d\n", rank);
-    //         for(int i = 0; i < sub_matrix_size; i++){
-    //             printf("row %d: ", i);
-    //             for(int j = 0; j < sub_matrix_size; j++)
-    //                 if(local[i*sub_matrix_size + j] > 10)
-    //                     printf(" 0.00");
-    //                 else
-    //                     printf(" %1.2f",local[i*sub_matrix_size + j]);
-    //             printf("\n");
-    //         }
-    //     }
-    // }
 
     // gather
     if(rank == 0){
