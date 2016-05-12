@@ -38,18 +38,12 @@ int main(int argc, char **argv) {
 
         wghEdgeArray<intT> Gr = benchIO::readWghEdgeArrayFromFile<intT>(iFile);
 
-        // double **weightTable = allPairsShortestPath(G);
-
-        // initialization for table
-        // intT n = Gr.n;
         n = Gr.n;
         wghEdge<intT> *edgeList = Gr.E;
         wghEdge<intT> curEdge;
         weightTable = new double [n*n];
         weightTable_mpi = new double [n*n];
         for (int i = 0; i < n; ++i) {
-            // weightTable[i] = new double[n];
-            // weightTable_mpi[i] = new double[n];
             for (int j = 0; j < n; ++j){
                 weightTable[ind(i,j)] = numeric_limits<double>::max();
                 weightTable_mpi[ind(i,j)] = numeric_limits<double>::max();
@@ -61,29 +55,12 @@ int main(int argc, char **argv) {
             int v = curEdge.v;
             double weight = curEdge.weight;
 
-            // cout << "edge " << i << " connects node " << u << " and node " << v
-            // << ", with weight " << weight << endl;
-
             if (weightTable[ind(u,v)] > weight){
                 weightTable[ind(u,v)] = weight;
                 weightTable_mpi[ind(u,v)] = weight;
             }
         }
     }
-
-    // if (rank == 0) {
-    //     printf("original table \n", rank);
-    //     for(int i = 0; i < n; i++){
-    //         printf("row %d: ", i);
-    //         for(int j = 0; j < n; j++)
-    //             if(weightTable_mpi[ind(i,j)] > 10)
-    //                 printf(" 0.00");
-    //             else
-    //                 printf(" %1.2f",i,weightTable_mpi[ind(i,j)]);
-    //         printf("\n");
-    //     }
-    //     printf("\n");
-    // }
 
     struct timespec start_ser, end_ser;
 
@@ -115,22 +92,15 @@ int main(int argc, char **argv) {
     clock_gettime(CLOCK_MONOTONIC,&start_ser);
 
     MPI_Bcast(&n, 1, MPI_INT, 0, MPI_COMM_WORLD);
-    // MPI_Barrier(MPI_COMM_WORLD);
-    
-    // printf("here rank %d has n %d\n", rank, n);
 
     row_per_pro = n / num_pro;
     start = row_per_pro * rank;
-    // local  = (double*) malloc(sizeof(double) * row_per_pro * n);
-    // rowK_space = (double *) malloc(sizeof(double) * n);
 
     local = new double[row_per_pro * n];
     rowK_space = new double[n];
     
     
     if(rank == 0){
-        // sendcounts = (int*) malloc(sizeof(int) * num_pro);
-        // displs = (int*) malloc(sizeof(int) * num_pro);
 
         sendcounts = new int[num_pro];
         displs = new int[num_pro];
@@ -146,23 +116,6 @@ int main(int argc, char **argv) {
     
     MPI_Barrier(MPI_COMM_WORLD);
 
-    // for(int r = 0; r < num_pro; r++) {
-    //     MPI_Barrier(MPI_COMM_WORLD);
-    //     if (r == rank) {
-    //         printf("rank: %d\n", rank);
-    //         for(int i = 0; i < row_per_pro; i++){
-    //             printf("row %d: ", i);
-    //             for(int j = 0; j < n; j++)
-    //                 if(local[ind(i,j)] > 10)
-    //                     printf(" 0.00");
-    //                 else
-    //                     printf(" %1.2f",i,local[ind(i,j)]);
-    //             printf("\n");
-    //         }
-    //     }
-    // }
-
-    
 
 
     // do algo

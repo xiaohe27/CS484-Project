@@ -75,20 +75,6 @@ int main(int argc, char **argv) {
         }
     }
 
-    // if (rank == 0) {
-    //     printf("original table \n", rank);
-    //     for(int i = 0; i < n; i++){
-    //         printf("row %d: ", i);
-    //         for(int j = 0; j < n; j++)
-    //             if(weightTable_mpi[ind(i,j)] > 10)
-    //                 printf(" 0.00");
-    //             else
-    //                 printf(" %1.2f",weightTable_mpi[ind(i,j)]);
-    //         printf("\n");
-    //     }
-    //     printf("\n");
-    // }
-
     struct timespec start_ser, end_ser;
 
 
@@ -107,19 +93,6 @@ int main(int argc, char **argv) {
         }
     }
 
-    // if (rank == 0) {
-    //     printf("original table \n", rank);
-    //     for(int i = 0; i < n; i++){
-    //         printf("row %d: ", i);
-    //         for(int j = 0; j < n; j++)
-    //             if(weightTable[ind(i,j)] > 10)
-    //                 printf(" 0.00");
-    //             else
-    //                 printf(" %1.2f",weightTable[ind(i,j)]);
-    //         printf("\n");
-    //     }
-    //     printf("\n");
-    // }
 
     clock_gettime(CLOCK_MONOTONIC,&end_ser);
 
@@ -195,12 +168,7 @@ int main(int argc, char **argv) {
     col_m = new double[sub_matrix_size*sub_matrix_size];
     res_m = new double[sub_matrix_size*sub_matrix_size];
 
-    // if((rank / sqrt_q) == (rank % sqrt_q))
-    // memcpy(row_m, local, sub_matrix_size * sub_matrix_size * sizeof(double));
-    // memcpy(col_m, local, sub_matrix_size * sub_matrix_size * sizeof(double));
     memcpy(res_m, local, sub_matrix_size * sub_matrix_size * sizeof(double));
-
-    // printf("%d: %d, %d\n", rank, dims[0], dims[1]);
 
     int src_col = (sub_matrix_X + 1) % sqrt_q;
     int dst_col = (sub_matrix_X + sqrt_q - 1) % sqrt_q;
@@ -220,7 +188,6 @@ int main(int argc, char **argv) {
                 // int sour = sub_matrix_X * sqrt_q + bcast;
                 MPI_Bcast(row_m, sub_matrix_size * sub_matrix_size, MPI_DOUBLE, bcast, comm_row);
             }
-        MPI_Barrier(MPI_COMM_WORLD);
 
             for (int k = 0; k < sub_matrix_size; ++k) {
                 for (int j = 0; j < sub_matrix_size; ++j) {
@@ -232,48 +199,14 @@ int main(int argc, char **argv) {
                 }
             }
 
-    //         for(int r = 0; r < num_pro; r++) {
-    //     MPI_Barrier(MPI_COMM_WORLD);
-    //     if (r == rank) {
-    //         printf("rank: %d\n", rank);
-    //         for(int i = 0; i < sub_matrix_size; i++){
-    //             printf("row %d: ", i);
-    //             for(int j = 0; j < sub_matrix_size; j++)
-    //                 if(res_m[i*sub_matrix_size + j] > 10)
-    //                     printf(" 0.00");
-    //                 else
-    //                     printf(" %1.2f",res_m[i*sub_matrix_size + j]);
-    //             printf("\n");
-    //         }
-    //     }
-    // }
 
             MPI_Sendrecv_replace(col_m, sub_matrix_size * sub_matrix_size, MPI_DOUBLE, dst_col, 0, src_col, 0, comm_col, MPI_STATUS_IGNORE);
-        MPI_Barrier(MPI_COMM_WORLD);
         
         }
 
         MPI_Barrier(MPI_COMM_WORLD);
         memcpy(local, res_m, sub_matrix_size * sub_matrix_size * sizeof(double));
     }
-
-    // printf("here\n");
-
-    // for(int r = 0; r < num_pro; r++) {
-    //     MPI_Barrier(MPI_COMM_WORLD);
-    //     if (r == rank) {
-    //         printf("rank: %d\n", rank);
-    //         for(int i = 0; i < sub_matrix_size; i++){
-    //             printf("row %d: ", i);
-    //             for(int j = 0; j < sub_matrix_size; j++)
-    //                 if(local[i*sub_matrix_size + j] > 10)
-    //                     printf(" 0.00");
-    //                 else
-    //                     printf(" %1.2f",local[i*sub_matrix_size + j]);
-    //             printf("\n");
-    //         }
-    //     }
-    // }
 
     // gather
     if(rank == 0){

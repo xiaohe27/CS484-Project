@@ -42,10 +42,6 @@ int main(int argc, char **argv) {
 
         wghEdgeArray<intT> Gr = benchIO::readWghEdgeArrayFromFile<intT>(iFile);
 
-        // double **weightTable = allPairsShortestPath(G);
-
-        // initialization for table
-        // intT n = Gr.n;
         n = Gr.n;
         wghEdge<intT> *edgeList = Gr.E;
         wghEdge<intT> curEdge;
@@ -65,8 +61,6 @@ int main(int argc, char **argv) {
             int v = curEdge.v;
             double weight = curEdge.weight;
 
-            // cout << "edge " << i << " connects node " << u << " and node " << v
-            // << ", with weight " << weight << endl;
 
             if (weightTable[ind(u,v)] > weight){
                 weightTable[ind(u,v)] = weight;
@@ -74,20 +68,6 @@ int main(int argc, char **argv) {
             }
         }
     }
-
-    // if (rank == 0) {
-    //     printf("original table \n", rank);
-    //     for(int i = 0; i < n; i++){
-    //         printf("row %d: ", i);
-    //         for(int j = 0; j < n; j++)
-    //             if(weightTable_mpi[ind(i,j)] > 10)
-    //                 printf(" 0.00");
-    //             else
-    //                 printf(" %1.2f",weightTable_mpi[ind(i,j)]);
-    //         printf("\n");
-    //     }
-    //     printf("\n");
-    // }
 
     struct timespec start_ser, end_ser;
 
@@ -107,20 +87,6 @@ int main(int argc, char **argv) {
         }
     }
 
-    // if (rank == 0) {
-    //     printf("original table \n", rank);
-    //     for(int i = 0; i < n; i++){
-    //         printf("row %d: ", i);
-    //         for(int j = 0; j < n; j++)
-    //             if(weightTable[ind(i,j)] > 10)
-    //                 printf(" 0.00");
-    //             else
-    //                 printf(" %1.2f",weightTable[ind(i,j)]);
-    //         printf("\n");
-    //     }
-    //     printf("\n");
-    // }
-
     clock_gettime(CLOCK_MONOTONIC,&end_ser);
 
     diff = (double)((double)BILLION*(end_ser.tv_sec-start_ser.tv_sec)+end_ser.tv_nsec-start_ser.tv_nsec)/1000000;
@@ -134,7 +100,6 @@ int main(int argc, char **argv) {
 
     MPI_Bcast(&n, 1, MPI_INT, 0, MPI_COMM_WORLD);
     
-    // printf("here rank %d has n %d\n", rank, n);
 
     sub_matrix_size = n / (int)sqrt(num_pro);
 
@@ -151,7 +116,6 @@ int main(int argc, char **argv) {
             int sub_matrix_X = r / (int)sqrt(num_pro); sub_matrix_X *= sub_matrix_size;
             int sub_matrix_Y = r % (int)sqrt(num_pro); sub_matrix_Y *= sub_matrix_size;
 
-            // printf("%d %d\n", sub_matrix_X, sub_matrix_Y);
 
             for(int i = 0; i < sub_matrix_size; i++){
                 for(int j = 0; j < sub_matrix_size; j++){
@@ -210,22 +174,6 @@ int main(int argc, char **argv) {
         }
 
     }
-
-    // for(int r = 0; r < num_pro; r++) {
-    //     MPI_Barrier(MPI_COMM_WORLD);
-    //     if (r == rank) {
-    //         printf("rank: %d\n", rank);
-    //         for(int i = 0; i < sub_matrix_size; i++){
-    //             printf("row %d: ", i);
-    //             for(int j = 0; j < sub_matrix_size; j++)
-    //                 if(local[i*sub_matrix_size + j] > 10)
-    //                     printf(" 0.00");
-    //                 else
-    //                     printf(" %1.2f",local[i*sub_matrix_size + j]);
-    //             printf("\n");
-    //         }
-    //     }
-    // }
 
     // gather
     if(rank == 0){
